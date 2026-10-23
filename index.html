@@ -339,6 +339,24 @@ section{display:grid;gap:12px}
 .gbox{width:min(760px,100%);max-height:calc(100vh - 32px);overflow:auto;display:grid;gap:12px;background:var(--blush);border-radius:22px;padding:14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
 .gbox .dhead{position:relative}.gx{position:absolute;top:10px;inset-inline-end:10px;width:38px;height:38px;border-radius:50%;border:0;background:#fff;color:var(--plum);font-size:16px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
 .gem:focus-visible{outline:3px solid var(--rosegold);outline-offset:3px}.gem{transition:transform .2s}.gem:hover{transform:translateY(-3px)}
+.lion{position:fixed;inset:0;z-index:200;display:grid;place-items:center;overflow:hidden;background:transparent;pointer-events:none;animation:lfade .3s ease both}
+.lion.out{animation:lout .6s ease both}
+@keyframes lfade{from{opacity:0}}@keyframes lout{to{opacity:0;transform:scale(.85) translateY(-6vh)}}
+.l-rays,.l-glow{display:none}
+.l-core{position:relative;display:grid;justify-items:center;text-align:center;gap:2px;transform:rotate(-4deg)}
+.l-face{font-size:min(34vmin,240px);line-height:1;filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(0 10px 14px rgba(74,34,56,.35));animation:lpop .9s cubic-bezier(.2,1.6,.4,1) both,lbreath 1.4s ease-in-out .9s infinite}
+@keyframes lpop{0%{transform:scale(.2) rotate(-25deg);opacity:0}70%{transform:scale(1.12) rotate(4deg);opacity:1}100%{transform:none}}
+@keyframes lbreath{50%{transform:scale(1.05) rotate(2deg)}}
+.l-crown{font-size:min(12vmin,84px);line-height:1;margin-bottom:-5vmin;z-index:1;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 4px 8px rgba(0,0,0,.25));animation:lcrown .7s cubic-bezier(.2,1.5,.4,1) .6s both}
+@keyframes lcrown{from{transform:translateY(-30vh) rotate(-30deg);opacity:0}}
+.l-t,.l-n,.l-s{border:3px solid #fff;box-shadow:0 8px 18px -6px rgba(74,34,56,.45);border-radius:999px;padding:2px 18px}
+.l-t{font-family:var(--f-disp);font-weight:700;font-size:min(7vmin,46px);color:#fff;background:linear-gradient(180deg,#F6C453,#D98E1F);text-shadow:0 2px 0 rgba(120,60,0,.35);animation:lup .5s cubic-bezier(.2,1.5,.4,1) .8s both;margin-top:-1vmin}
+.l-n{font-family:var(--f-disp);font-weight:700;font-size:min(5vmin,32px);color:var(--plum);background:#FFF8F6;animation:lup .5s cubic-bezier(.2,1.5,.4,1) 1s both;max-width:90vw}
+.l-s{font-size:min(3.4vmin,18px);color:#fff;background:var(--rose);animation:lup .5s cubic-bezier(.2,1.5,.4,1) 1.15s both;padding:0 14px}
+@keyframes lup{from{opacity:0;transform:scale(.5)}}
+.l-sp{position:absolute;left:var(--x);bottom:-20px;width:calc(12px*var(--s));height:calc(12px*var(--s));background:radial-gradient(circle,#FFF6D0,#F2C14E 60%,transparent 70%);border-radius:50%;animation:lsp 2.6s ease-out var(--d) both}
+@keyframes lsp{to{transform:translateY(-110vh) scale(.4);opacity:0}}
+@media (prefers-reduced-motion:reduce){.l-face,.l-sp{animation:none!important}}
 .labsvg .pulse{animation:pl 1.2s ease-in-out infinite}@keyframes pl{50%{stroke-opacity:.25;fill-opacity:.05}}
 </style>
 </head>
@@ -654,9 +672,11 @@ const likeTot=n=>{const l=likeOf(n);return l.t+l.m+l.g+l.o};
 function calcHearts(){HEARTS=[0,1,2,3,4].map(g=>GH[g]+STUD.filter(s=>s.g===g).reduce((a,s)=>a+likeTot(s.n),0))}
 try{if(!/^https:\/\/script\.google\.com\//.test(SYNC_URL))LIKES=JSON.parse(localStorage.getItem('ss-likes')||'{}')}catch(e){}
 try{SY.pin=localStorage.getItem('ss-pin')||'';SY.gpin=localStorage.getItem('ss-gpin')||''}catch(e){}
-function api(q,post){const u=SYNC_URL+'?'+new URLSearchParams(q).toString();
-  const p=post?fetch(SYNC_URL,{method:'POST',body:JSON.stringify(Object.assign({},q,post))}):fetch(u,{cache:'no-store'});
-  return p.then(r=>r.json()).then(j=>{SY.ok=Date.now();if(j.d)ingest(j.d);return j}).catch(e=>{SY.err++;return {ok:false}})}
+SY.seq=0;SY.applied=0;
+function api(q,post){const u=SYNC_URL+'?'+new URLSearchParams(q).toString(),id=++SY.seq;let ac=null,to=0;try{ac=new AbortController();to=setTimeout(()=>ac.abort(),12000)}catch(e){}
+  const o=ac?{signal:ac.signal}:{};
+  const p=post?fetch(SYNC_URL,Object.assign({method:'POST',body:JSON.stringify(Object.assign({},q,post))},o)):fetch(u,Object.assign({cache:'no-store'},o));
+  return p.then(r=>r.json()).then(j=>{SY.ok=Date.now();if(j.d&&id>SY.applied){SY.applied=id;try{ingest(j.d)}catch(e){}}return j}).catch(e=>{SY.err++;return {ok:false}}).finally(()=>clearTimeout(to))}
 const myKey=()=>ME?(ME.n?'d'+ME.n:'x'+ME.g):null;
 function recs(){ // all device records
   const out=[];Object.keys(SY.d).forEach(k=>{if(/^(d\d+|x\d)$/.test(k)){try{const r=JSON.parse(SY.d[k]);if(r&&r.a)out.push(r)}catch(e){}}});
@@ -668,9 +688,10 @@ function ingest(d){SY.d=d;
     if(SY.mode==='group'&&(prev!==CTL.st||pq!==CTL.q||pr!==CTL.rv))renderDev();
     if(SY.mode==='group'&&CTL.msg&&CTL.msg.id!==pm)showMsg()}}catch(e){}}
   for(let g=0;g<5;g++){if(d['G'+g]){try{const o=JSON.parse(d['G'+g]);const mine=SY.gq[g]||{};GRP[g]=Object.assign({},o,mine)}catch(e){}}}
-  if(d.hearts){try{const h=JSON.parse(d.hearts);GH=[0,1,2,3,4].map(i=>+h[i]||0)}catch(e){}}
+  if(d.hearts){try{const h=JSON.parse(d.hearts);const og=GH.slice();GH=[0,1,2,3,4].map(i=>+h[i]||0);if(SY.hInit)GH.forEach((v,g)=>{if(Math.floor(v/5)>Math.floor(og[g]/5))lionFor(null,g)})}catch(e){}}
   {let nl={};try{nl=JSON.parse(d.likes||'{}')}catch(e){}
     if(SY.mode==='group'&&ME&&ME.n&&SY.hInit){const a=likeOf(ME.n),b=Object.assign({t:0,m:0,g:0,o:0},nl[ME.n]||{});Object.keys(SRC).forEach(k=>{if(b[k]>a[k])floatHearts(b[k]-a[k],k)})}
+    if(SY.hInit)Object.keys(nl).forEach(n=>{const b=Object.values(nl[n]||{}).reduce((a,x)=>a+(+x||0),0),a=likeTot(+n);if(Math.floor(b/5)>Math.floor(a/5))lionFor(+n,STUD[n-1]?STUD[n-1].g:0,b)});
     LIKES=nl;}
   calcHearts();
   SY.hInit=true;
@@ -680,16 +701,16 @@ function saveMe(){try{localStorage.setItem('ss-me',JSON.stringify(ME))}catch(e){
 function pushGroup(g,obj){Object.assign(GRP[g],obj);SY.gq[g]=Object.assign(SY.gq[g]||{},obj);refreshLive();if(!SY.on){try{localStorage.setItem('ss-G'+g,JSON.stringify(GRP[g]))}catch(e){};return}
   api({a:'gset',g,v:JSON.stringify(SY.gq[g])}).then(j=>{if(j&&j.ok)delete SY.gq[g]})}
 function poll(){if(!SY.on||SY.busy)return;SY.busy=true;let p;
-  if(SY.mode==='group'&&ME&&SY.dirty){SY.dirty=false;p=api({a:'set',k:myKey(),v:JSON.stringify(ME),w:1})}
+  if(SY.mode==='group'&&ME&&SY.dirty){SY.dirty=false;p=api({a:'set',k:myKey(),v:JSON.stringify(ME),w:1}).then(j=>{if(!j||!j.ok)SY.dirty=true;return j})}
   else p=api({a:'get'});
   p.finally(()=>{SY.busy=false})}
 function pushCtl(){refreshLive();renderABar();if(!SY.on){try{localStorage.setItem('ss-ctl',JSON.stringify(CTL))}catch(e){};return}
   if(SY.mode!=='admin')return;const v=JSON.stringify(CTL);SY.ctlSig=v;
   api({a:'ctl',pin:SY.pin,v}).then(j=>{if(j&&j.err==='pin'){SY.mode='view';SY.pin='';try{localStorage.removeItem('ss-pin')}catch(e){};renderAdm()}})}
-function sendLike(n,src){const r=LIKES[n]=LIKES[n]||{};r[src]=(+r[src]||0)+1;calcHearts();refreshLive();
+function sendLike(n,src){const before=likeTot(n);const r=LIKES[n]=LIKES[n]||{};r[src]=(+r[src]||0)+1;if(Math.floor(likeTot(n)/5)>Math.floor(before/5))lionFor(n,STUD[n-1].g,likeTot(n));calcHearts();refreshLive();
   if(!SY.on){try{localStorage.setItem('ss-likes',JSON.stringify(LIKES))}catch(e){};return}
   const pin=src==='t'?SY.pin:(src==='g'||src==='o')?(SY.gpin||SY.pin):'';api({a:'like',n,src,pin})}
-function sendHearts(g,n){HEARTS[g]+=n;refreshLive();if(!SY.on)return;
+function sendHearts(g,n){const b=GH[g];GH[g]+=n;calcHearts();if(Math.floor(GH[g]/5)>Math.floor(b/5))lionFor(null,g);refreshLive();if(!SY.on)return;
   SY.hq[g]=(SY.hq[g]||0)+n;clearTimeout(SY.ht);SY.ht=setTimeout(()=>{const q=SY.hq;SY.hq={};Object.keys(q).forEach(k=>api({a:'heart',g:k,n:q[k]}))},700)}
 const canControl=()=>!SY.on||SY.mode==='admin';
 function syncText(){if(!SY.on)return '<span class="dot"></span>المزامنة غير مفعّلة بعد (يعمل هذا الجهاز وحده)';
@@ -902,6 +923,24 @@ function floatHearts(n,src){if(src&&SRC[src])toast(`❤ قلب من ${SRC[src][0
   document.body.appendChild(h);requestAnimationFrame(()=>{h.style.transform=`translate(${(Math.random()-.5)*80}px,-${55+Math.random()*30}vh) rotate(${(Math.random()-.5)*40}deg)`;h.style.opacity='0'});setTimeout(()=>h.remove(),2800)},i*140)}
 
 function toast(t){let el=$('#toast');if(!el){el=document.createElement('div');el.id='toast';el.setAttribute('role','status');el.style.cssText='position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--plum);color:#fff;border-radius:999px;padding:10px 20px;font-weight:700;z-index:90;box-shadow:0 10px 24px -10px rgba(0,0,0,.5);transition:opacity .4s';document.body.appendChild(el)}el.textContent=t;el.style.opacity='1';clearTimeout(el._t);el._t=setTimeout(()=>el.style.opacity='0',2600)}
+
+/* ===== 🦁 lion celebration every 5 hearts ===== */
+const LIONQ=[];let lionOn=false;
+function lionFor(n,g,tot){if(SY.mode==='group'&&g!==DEVG)return;
+  const G=GROUPS[g];LIONQ.push({who:n?STUD[n-1].name.split(' ').slice(0,2).join(' '):`Team ${G.en}`,sub:n?`${tot} قلباً · Team ${G.en}`:'5 قلوب جديدة للمجموعة',tone:G.tone});if(!lionOn)nextLion()}
+function nextLion(){const L=LIONQ.shift();if(!L){lionOn=false;return}lionOn=true;roar();
+  const o=document.createElement('div');o.className='lion';o.setAttribute('role','status');
+  o.innerHTML=`<div class="l-rays"></div><div class="l-glow"></div>${Array.from({length:26},(_,i)=>`<i class="l-sp" style="--x:${(Math.random()*100).toFixed(1)}%;--d:${(Math.random()*1.4).toFixed(2)}s;--s:${(0.6+Math.random()*1.2).toFixed(2)}"></i>`).join('')}
+    <div class="l-core"><div class="l-crown">👑</div><div class="l-face">🦁</div><div class="l-t">زئير التميّز!</div><div class="l-n">${esc(L.who)}</div><div class="l-s">${esc(L.sub)}</div></div>`;
+  document.body.appendChild(o);try{navigator.vibrate&&navigator.vibrate([80,60,160])}catch(e){}
+  setTimeout(()=>{o.classList.add('out');setTimeout(()=>{o.remove();nextLion()},600)},4600)}
+let _lac=null;function roar(){try{_lac=_lac||new (window.AudioContext||window.webkitAudioContext)();const c=_lac;if(c.state==='suspended')c.resume();const t=c.currentTime,out=c.createGain();out.gain.value=.9;out.connect(c.destination);
+  const o=c.createOscillator(),f=c.createBiquadFilter(),g=c.createGain(),lfo=c.createOscillator(),lg=c.createGain();o.type='sawtooth';o.frequency.setValueAtTime(95,t);o.frequency.linearRampToValueAtTime(140,t+.35);o.frequency.exponentialRampToValueAtTime(60,t+1.6);
+  lfo.frequency.value=28;lg.gain.value=22;lfo.connect(lg);lg.connect(o.frequency);f.type='lowpass';f.frequency.setValueAtTime(600,t);f.frequency.linearRampToValueAtTime(1400,t+.35);f.frequency.exponentialRampToValueAtTime(300,t+1.6);f.Q.value=6;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.7,t+.12);g.gain.setValueAtTime(.7,t+.6);g.gain.exponentialRampToValueAtTime(.001,t+1.8);o.connect(f);f.connect(g);g.connect(out);o.start(t);lfo.start(t);o.stop(t+1.9);lfo.stop(t+1.9);
+  const n=c.sampleRate*1.8,b=c.createBuffer(1,n,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,1.5);
+  const s=c.createBufferSource(),nf=c.createBiquadFilter(),ng=c.createGain();nf.type='bandpass';nf.frequency.value=420;nf.Q.value=.8;ng.gain.setValueAtTime(0,t);ng.gain.linearRampToValueAtTime(.35,t+.1);ng.gain.exponentialRampToValueAtTime(.001,t+1.7);s.buffer=b;s.connect(nf);nf.connect(ng);ng.connect(out);s.start(t);
+  [523,659,784,1047].forEach((fr,i)=>{const x=c.createOscillator(),xg=c.createGain(),tt=t+1.5+i*.09;x.type='triangle';x.frequency.value=fr;xg.gain.setValueAtTime(0,tt);xg.gain.linearRampToValueAtTime(.18,tt+.02);xg.gain.exponentialRampToValueAtTime(.001,tt+.8);x.connect(xg);xg.connect(out);x.start(tt);x.stop(tt+.9)})}catch(e){}}
 
 /* ===================== المتابعة (أ. سارة) ===================== */
 const IND=ORDER.filter(k=>ST[k].scope==='ind');
