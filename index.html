@@ -790,7 +790,11 @@ function renderABar(){const b=$('#abar');if(!b)return;const s=SL[si],st=s&&s.st;
     pushCtl();if(st==='quiz')show();else renderABar()})}
 $('#sPrev').onclick=()=>{si=Math.max(0,si-1);show()};
 $('#sNext').onclick=()=>{si=Math.min(SL.length-1,si+1);show()};
-document.addEventListener('keydown',e=>{if($('#v-show').hidden||e.target.closest('input,textarea,select'))return;if(e.key==='ArrowLeft')$('#sNext').click();if(e.key==='ArrowRight')$('#sPrev').click()});
+document.addEventListener('keydown',e=>{if($('#v-show').hidden||e.target.closest('input,textarea,select'))return;const k=e.key;
+  const nx=['PageDown','ArrowLeft',' ','Enter','ArrowDown'].includes(k),pv=['PageUp','ArrowRight','Backspace','ArrowUp'].includes(k);
+  if(['b','B','.'].includes(k)){e.preventDefault();let bk=$('#blk');if(!bk){bk=document.createElement('div');bk.id='blk';bk.style.cssText='position:fixed;inset:0;background:#000;z-index:999';bk.onclick=()=>bk.remove();(document.fullscreenElement||document.body).appendChild(bk)}else bk.remove();return}
+  if($('#blk')){$('#blk').remove();if(nx||pv){e.preventDefault();return}}
+  if(nx){e.preventDefault();$('#sNext').click()}if(pv){e.preventDefault();$('#sPrev').click()}});
 
 /* ---------- live panels (slides + monitor) ---------- */
 function mcqLive(st){const z=ST[st],rs=recs(),cnt=z.o.map(()=>0);let n=0;rs.forEach(r=>{const v=r.a&&r.a[st];if(v!=null&&v>=0){cnt[v]++;n++}});const mx=Math.max(1,...cnt),rev=z.predict?REVEAL['p'+st]:REVEAL['m'+st];
