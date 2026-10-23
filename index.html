@@ -344,7 +344,7 @@ section{display:grid;gap:12px}
 @keyframes lfade{from{opacity:0}}@keyframes lout{to{opacity:0;transform:scale(.85) translateY(-6vh)}}
 .l-rays,.l-glow{display:none}
 .l-core{position:relative;display:grid;justify-items:center;text-align:center;gap:2px;transform:rotate(-4deg)}
-.l-face{font-size:min(34vmin,240px);line-height:1;filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(0 10px 14px rgba(74,34,56,.35));animation:lpop .9s cubic-bezier(.2,1.6,.4,1) both,lbreath 1.4s ease-in-out .9s infinite}
+.l-face{width:min(62vmin,420px);height:auto;display:block;filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(0 10px 14px rgba(74,34,56,.35));animation:lpop .9s cubic-bezier(.2,1.6,.4,1) both,lbreath 1.4s ease-in-out .9s infinite}
 @keyframes lpop{0%{transform:scale(.2) rotate(-25deg);opacity:0}70%{transform:scale(1.12) rotate(4deg);opacity:1}100%{transform:none}}
 @keyframes lbreath{50%{transform:scale(1.05) rotate(2deg)}}
 .l-crown{font-size:min(12vmin,84px);line-height:1;margin-bottom:-5vmin;z-index:1;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 4px 8px rgba(0,0,0,.25));animation:lcrown .7s cubic-bezier(.2,1.5,.4,1) .6s both}
@@ -931,16 +931,14 @@ function lionFor(n,g,tot){if(SY.mode==='group'&&g!==DEVG)return;
 function nextLion(){const L=LIONQ.shift();if(!L){lionOn=false;return}lionOn=true;roar();
   const o=document.createElement('div');o.className='lion';o.setAttribute('role','status');
   o.innerHTML=`<div class="l-rays"></div><div class="l-glow"></div>${Array.from({length:26},(_,i)=>`<i class="l-sp" style="--x:${(Math.random()*100).toFixed(1)}%;--d:${(Math.random()*1.4).toFixed(2)}s;--s:${(0.6+Math.random()*1.2).toFixed(2)}"></i>`).join('')}
-    <div class="l-core"><div class="l-crown">👑</div><div class="l-face">🦁</div><div class="l-t">زئير التميّز!</div><div class="l-n">${esc(L.who)}</div><div class="l-s">${esc(L.sub)}</div></div>`;
+    <div class="l-core"><img class="l-face" src="lion.webp" alt=""><div class="l-t">زئير التميّز!</div><div class="l-n">${esc(L.who)}</div><div class="l-s">${esc(L.sub)}</div></div>`;
   document.body.appendChild(o);try{navigator.vibrate&&navigator.vibrate([80,60,160])}catch(e){}
-  setTimeout(()=>{o.classList.add('out');setTimeout(()=>{o.remove();nextLion()},600)},4600)}
-let _lac=null;function roar(){try{_lac=_lac||new (window.AudioContext||window.webkitAudioContext)();const c=_lac;if(c.state==='suspended')c.resume();const t=c.currentTime,out=c.createGain();out.gain.value=.9;out.connect(c.destination);
-  const o=c.createOscillator(),f=c.createBiquadFilter(),g=c.createGain(),lfo=c.createOscillator(),lg=c.createGain();o.type='sawtooth';o.frequency.setValueAtTime(95,t);o.frequency.linearRampToValueAtTime(140,t+.35);o.frequency.exponentialRampToValueAtTime(60,t+1.6);
-  lfo.frequency.value=28;lg.gain.value=22;lfo.connect(lg);lg.connect(o.frequency);f.type='lowpass';f.frequency.setValueAtTime(600,t);f.frequency.linearRampToValueAtTime(1400,t+.35);f.frequency.exponentialRampToValueAtTime(300,t+1.6);f.Q.value=6;
-  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.7,t+.12);g.gain.setValueAtTime(.7,t+.6);g.gain.exponentialRampToValueAtTime(.001,t+1.8);o.connect(f);f.connect(g);g.connect(out);o.start(t);lfo.start(t);o.stop(t+1.9);lfo.stop(t+1.9);
-  const n=c.sampleRate*1.8,b=c.createBuffer(1,n,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,1.5);
-  const s=c.createBufferSource(),nf=c.createBiquadFilter(),ng=c.createGain();nf.type='bandpass';nf.frequency.value=420;nf.Q.value=.8;ng.gain.setValueAtTime(0,t);ng.gain.linearRampToValueAtTime(.35,t+.1);ng.gain.exponentialRampToValueAtTime(.001,t+1.7);s.buffer=b;s.connect(nf);nf.connect(ng);ng.connect(out);s.start(t);
-  [523,659,784,1047].forEach((fr,i)=>{const x=c.createOscillator(),xg=c.createGain(),tt=t+1.5+i*.09;x.type='triangle';x.frequency.value=fr;xg.gain.setValueAtTime(0,tt);xg.gain.linearRampToValueAtTime(.18,tt+.02);xg.gain.exponentialRampToValueAtTime(.001,tt+.8);x.connect(xg);xg.connect(out);x.start(tt);x.stop(tt+.9)})}catch(e){}}
+  setTimeout(()=>{o.classList.add('out');setTimeout(()=>{o.remove();nextLion()},600)},6600)}
+let _lac=null,_roarBuf=null;
+function roar(){try{_lac=_lac||new (window.AudioContext||window.webkitAudioContext)();const c=_lac;if(c.state==='suspended')c.resume();
+  const go=b=>{const src=c.createBufferSource(),g=c.createGain();g.gain.value=1;src.buffer=b;src.connect(g);g.connect(c.destination);src.start()};
+  if(_roarBuf)return go(_roarBuf);fetch('roar.mp3').then(r=>r.arrayBuffer()).then(a=>c.decodeAudioData(a)).then(b=>{_roarBuf=b;go(b)}).catch(()=>{try{new Audio('roar.mp3').play().catch(()=>{})}catch(e){}})}
+  catch(e){try{new Audio('roar.mp3').play().catch(()=>{})}catch(x){}}}
 
 /* ===================== المتابعة (أ. سارة) ===================== */
 const IND=ORDER.filter(k=>ST[k].scope==='ind');
