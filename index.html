@@ -445,6 +445,22 @@ body{font-size:17px}.sub{font-size:15px}.mini{font-size:13.5px}
 .lvr{display:grid;grid-template-columns:1fr repeat(3,1.7em);gap:4px;align-items:center}.lvr i{font-style:normal;text-align:center;border-radius:6px;font-weight:800;line-height:1.6;background:#F3E7EB;color:#B9A2AD}
 .lvr i.ok{color:#fff}.lvr i.s0.ok{background:var(--s2)}.lvr i.s1.ok{background:var(--s4)}.lvr i.s2.ok{background:var(--s5)}.lvr i.no{background:#FBE1E1;color:#C0392B}.lvr i.cur{background:#fff;color:var(--rose);outline:2px solid var(--rose);animation:mpulse 1.4s infinite}
 .lvk{margin:4px 0 0;text-align:center}
+.hand{display:grid;gap:10px;justify-items:center;text-align:center;padding:22px 16px!important;border:2px solid var(--rose)!important;background:linear-gradient(180deg,#fff,#FFF1F5)!important}
+.hand-ic{font-size:44px;animation:beat 1.6s ease-in-out infinite}.hand small{color:var(--mauve);font-weight:700}
+.hand-nm{font-family:var(--f-disp);font-size:clamp(24px,7vw,34px)!important;color:var(--rose)!important;margin:0}
+.hand-go{font-size:20px!important;padding:12px 26px!important}
+.hand details{font-size:14px;color:var(--mauve)}.hand-alt{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:6px}.hand-alt button{font:inherit;border:1.5px solid var(--line);border-radius:99px;background:#fff;padding:4px 12px;cursor:pointer}
+.hand-prog{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}.hand-prog span{font-size:13px;border-radius:99px;padding:2px 10px;background:#F3E7EB;color:var(--mauve)}.hand-prog .ok{background:#E3F4EA;color:#2E7D52}.hand-prog .now{background:var(--rose);color:#fff}
+.handbar{position:sticky;bottom:8px;z-index:30;margin-top:10px;display:grid;gap:8px;justify-items:center;text-align:center;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:10px 14px;box-shadow:0 10px 24px -14px rgba(74,34,56,.6)}
+.handbar.on{background:linear-gradient(180deg,#FFF6F9,#FDE3EC);border:2.5px solid var(--rose);animation:handp 1.2s ease-in-out infinite alternate}
+.handbar.on b{font-size:17px;color:var(--plum)}.handbar.on span b{color:var(--rose)}
+@keyframes handp{to{box-shadow:0 0 0 6px rgba(194,94,122,.18),0 10px 24px -14px rgba(74,34,56,.6)}}
+.handbar button{font:inherit;font-weight:800;font-size:17px;border:0;border-radius:99px;padding:11px 22px;cursor:pointer;color:#fff;background:linear-gradient(180deg,#D4708C,#A9476A);box-shadow:0 6px 14px -6px rgba(169,71,106,.7)}
+.handbar button.ghost{background:#fff;color:var(--rose);border:1.5px solid var(--rose);font-size:15px;padding:7px 18px;box-shadow:none}
+.bkb{position:relative;display:grid;gap:6px;justify-items:center;text-align:center;padding:16px 14px 14px;border-radius:16px;border:2.5px dashed #2E6B9E;background:linear-gradient(180deg,#F2F8FD,#E1EEF9);color:#1F4466;animation:handp 1.2s ease-in-out infinite alternate}
+.bkb-ic{font-size:38px}.bkb b{font-size:19px}.bkb span{font-size:15px;line-height:1.7}.bkb u{text-decoration-thickness:2px;font-weight:800}
+.bkb em{font-style:normal;position:absolute;top:-12px;left:14px;background:#2E6B9E;color:#fff;font-weight:800;border-radius:99px;padding:2px 12px;font-size:14px}
+.rstbox{border:2px solid #E3A1B4!important;background:linear-gradient(180deg,#fff,#FFF0F4)!important}
 .labsvg .pulse{animation:pl 1.2s ease-in-out infinite}@keyframes pl{50%{stroke-opacity:.25;fill-opacity:.05}}
 </style>
 </head>
@@ -593,7 +609,7 @@ const ST={
   task:['ضعي ذرة فوسفور P مكان إحدى ذرات السيليكون','شغّلي البطارية وراقبي الإلكترون الخامس وقراءة الأميتر'],
   qs:[{q:'ماذا حدث لقراءة الأميتر بعد التطعيم بالفوسفور؟',o:['نقصت','ازدادت كثيراً','بقيت كما هي'],a:1,ev:'الإلكترون الخامس حرّ الحركة، فيزداد عدد حاملات الشحنة ويرتفع التيار.'},
       {q:'نحو أي قطب تحرّك الإلكترون الحر عند تشغيل البطارية؟',o:['نحو القطب الموجب','نحو القطب السالب','لم يتحرّك'],a:0,ev:'الإلكترون سالب الشحنة، فيتّجه نحو القطب الموجب.'}],pts:2},
- lv1:{t:'اختاري مستواكِ… وارتقي',scope:'ind',type:'levels',tag:'الهدف الأول · المستويات',
+ lv1:{t:'اختاري مستواكِ… وارتقي',scope:'ind',type:'levels',bk:4,tag:'الهدف الأول · المستويات',
   L:[{n:'مستكشفة',c:'var(--s2)',p:1,q:'كم إلكترون تكافؤ في ذرة الفوسفور؟',o:['3','4','5','6'],a:2,ev:'للفوسفور خمسة إلكترونات تكافؤ، فهو خماسي التكافؤ.'},
      {n:'محلّلة',c:'var(--s4)',p:2,q:'لماذا يبقى إلكترون حر عند إضافة ذرة الفوسفور؟',o:['لأن الفوسفور يفقد إلكتروناته كلها','لأن أربعة من إلكتروناته تكوّن روابط مع أربع ذرات سيليكون، ولا يجد الخامس رابطة','لأن السيليكون يطرد أحد إلكتروناته','لأن الفوسفور موصل جيد بطبيعته'],a:1,ev:'أربعة إلكترونات تكوّن أربع روابط مع الجارات، ويبقى الخامس بلا رابطة فيصبح حراً.'},
      {n:'مبتكرة',c:'var(--s5)',p:3,q:'لماذا يُسمّى «النوع السالب» مع أن المادة متعادلة كهربائياً؟',o:['لأن المادة تكتسب شحنة سالبة من البطارية','لأن حاملات الشحنة الأغلبية فيه سالبة، وهي الإلكترونات، مع تساوي البروتونات والإلكترونات في المادة ككل','لأن ذرات الفوسفور سالبة الشحنة','لأن عدد الإلكترونات فيه أكبر من عدد البروتونات'],a:1,ev:'الاسم يصف نوع حاملات الشحنة الأغلبية (الإلكترونات)، أما المادة ككل فمتعادلة.'}]},
@@ -865,7 +881,7 @@ const SL=[
  {h:()=>`${head('نمذجة: إلكترون الفوسفور يبحث عن مكان','الهدف الأول',1)}<div class="cols"><div class="card2"><h4>نمثّل البلّورة بأنفسنا</h4><ol><li>أربع طالبات «سيليكون» يقفن حول طالبة «فوسفور» في الوسط.</li><li>تحمل «الفوسفور» <b>خمس</b> كرات زرقاء (إلكترونات التكافؤ).</li><li>تمدّ كل «سيليكون» يدها، فتتشارك كرة مع «الفوسفور»: أربع روابط.</li><li>تبقى كرة خامسة <b>بلا رابطة</b>… فتتجوّل بين الطاولات: إلكترون حر!</li></ol></div><div style="display:grid;gap:10px;align-content:start"><div class="def"><b>سؤال للمناقشة</b><span>«الفوسفور» بعد أن غادرتها الكرة الخامسة: هل بقيت متعادلة؟ <button type="button" class="rev" data-rev="pp">إظهار</button> <span data-revt="pp" hidden>صارت أيوناً موجباً <b>P⁺</b> ثابتاً في مكانه، والإلكترون هو الذي يتحرّك.</span></span></div>${ay('وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ','سورة المائدة: 2','الرابطة التساهمية مشاركة: كل ذرة تعطي إلكتروناً وتأخذ… وهكذا تعمل مجموعاتنا اليوم.')}</div></div>`},
  {st:'lab1',h:()=>`${head('المختبر الافتراضي: التطعيم بالفوسفور','الهدف الأول',2)}<div class="cols wide"><div data-lab="n" style="min-height:0;display:grid"></div><div style="display:grid;gap:10px;align-content:start"><div class="live" data-live="lab:lab1"></div>${ay('إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا','سورة النساء: 58','الأمانة العلمية: نسجّل قراءة الأميتر كما ظهرت، لا كما توقّعناها.')}</div></div>`},
  {h:()=>`${head('من الكتاب: الشكل 2-22','الهدف الأول',1)}<div class="cols"><div class="fig"><img src="f222.png" alt="الشكل 2-22: أشباه الموصلات من النوع السالب"></div><div style="display:grid;gap:10px;align-content:start"><p class="lead">كتاب الطالبة، صفحة 89: حلّلي الشكل، ثم صيغي تعريف شبه الموصل من النوع السالب n بلغتكِ الخاصة.</p><button type="button" class="rev" data-rev="dn">إظهار التعريف</button><div class="def" data-revt="dn" hidden><b>شبه الموصل من النوع السالب n</b><span>شبه موصل مطعّم بذرات <b>خماسية التكافؤ</b> مثل الفوسفور، تهب كل ذرة منها إلكتروناً حراً، فتكون <b>الإلكترونات</b> حاملات الشحنة الأغلبية.</span><span class="mini">تُسمّى ذرة الفوسفور «ذرة مانحة».</span></div></div></div>`},
- {st:'lv1',h:()=>`${head('اختاري مستواكِ… وارتقي','الهدف الأول',3)}<div class="cols"><div class="lv" style="grid-template-columns:1fr;align-content:start">${ST.lv1.L.map(l=>`<div style="background:${l.c}"><b>${l.n} · ${l.p} ${l.p>1?'نقاط':'نقطة'}</b><span>${l.q}</span></div>`).join('')}<p class="mini">الارتقاء إلى المستوى الأعلى مفتوح للجميع بعد الإجابة الصحيحة.</p></div><div class="live" data-live="lv1"></div></div>`},
+ {st:'lv1',h:()=>`${head('اختاري مستواكِ… وارتقي','الهدف الأول',3)}<div class="cols"><div class="lv" style="grid-template-columns:1fr;align-content:start">${ST.lv1.L.map(l=>`<div style="background:${l.c}"><b>${l.n} · ${l.p} ${l.p>1?'نقاط':'نقطة'}</b><span>${l.q}</span></div>`).join('')}<p class="mini">اختاري مستوى واحداً على الجهاز… ثم <b>أكملي بقية المستويات وإبداعاتكِ في دليلكِ الخاص · صفحة 4</b> 📘</p></div><div class="live" data-live="lv1"></div></div>`},
  {st:'ev1',h:()=>`${head('غلق الهدف الأول','الهدف الأول',4)}<div class="cols"><div class="qbig"><div class="qq">${ST.ev1.q}</div><div class="olist" data-olist="ev1">${ST.ev1.o.map((o,j)=>`<div data-j="${j}"><b>${AB[j]}</b> · ${o}</div>`).join('')}</div><div class="scanrow"><button type="button" class="scanbtn" data-q="ev1">📷 مسح بطاقات الطيف</button><span class="scanres" id="srev1">${scanSummary('ev1')}</span></div></div><div class="live" data-live="mcq:ev1"></div></div>`},
  // ===== Goal 2 =====
  {h:()=>`<div class="divd"><small>الهدف الثاني</small><h3>ملاحقة الفجوة</h3><p>شبه الموصل من النوع الموجب p: حين نضيف البورون إلى السيليكون</p><div class="dgoal">أن تفسّر الطالبة تكوّن شبه الموصل من النوع الموجب p</div><div class="steps">${['التهيئة','الشرح','التجربة','المقارنة','الغلق'].map((s,i)=>`<span style="background:${G1C[i]}">${s}</span>`).join('')}</div></div>`},
@@ -1001,12 +1017,13 @@ function dLab(B,st,z){const rec=ME.a[st]=ME.a[st]||{q:[]};
       H.innerHTML=`<p style="font-weight:700">${i+1}. ${q.q}</p>${opts(q.o,done?v:null,done?j=>j===q.a?'ok':(j===v?'no':''):null)}${done?fbHTML(v===q.a,q.ev):''}`;
       if(!done)H.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{rec.q[i]=+b.dataset.j;pushMine();r()})})()})}
   qs()}
+function bkBox(n,pg){const nm=n&&STUD[n-1]?esc(String(STUD[n-1].name).split(' ')[0]):'';return `<div class="bkb"><div class="bkb-ic">📘</div><b>${nm?nm+'، ':''}كمّلي الباقي في دليلكِ الخاص</b><span>افتحي <u>دليلكِ الخاص · صفحة ${pg}</u>، وأجيبي عن بقية المستويات كتابةً، وورّينا إبداعاتكِ في «ركن إبداعاتي» ✨</span><em>صفحة ${pg}</em></div>`}
 function dLv(B,st,z){const rec=ME.a.lv1=ME.a.lv1||{ok:[],tr:{}};let cur=rec.cur!=null?rec.cur:null;
   const draw=()=>{B.innerHTML=`<div class="lvls">${z.L.map((l,i)=>`<button type="button" data-l="${i}" style="background:${l.c}" aria-pressed="${cur===i}"><b>${l.n}</b><span>${l.p} ${l.p>1?'نقاط':'نقطة'}</span>${rec.ok.includes(i)?'<span class="ck">✓ أُنجز</span>':rec.tr[i]!=null?'<span class="ck">حاولتِ</span>':''}</button>`).join('')}</div><div id="lvq" style="display:grid;gap:10px"></div>`;
     B.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{cur=+b.dataset.l;rec.cur=cur;draw()});
     if(cur==null){$('#lvq').innerHTML='<p class="mini">اختاري المستوى الذي يناسبكِ الآن… ويمكنكِ الارتقاء بعد الإجابة.</p>';return}
     const l=z.L[cur],v=rec.tr[cur],done=v!=null;
-    $('#lvq').innerHTML=`<p style="font-weight:700">${l.q}</p>${opts(l.o,done?v:null,done?j=>j===l.a?'ok':(j===v?'no':''):null)}${done?fbHTML(v===l.a,l.ev+(v===l.a&&cur<2?' <b>ارتقي إلى المستوى التالي ←</b>':'')):''}`;
+    $('#lvq').innerHTML=`<p style="font-weight:700">${l.q}</p>${opts(l.o,done?v:null,done?j=>j===l.a?'ok':(j===v?'no':''):null)}${done?fbHTML(v===l.a,l.ev):''}${Object.keys(rec.tr).length?bkBox(ME.n,z.bk):''}`;
     if(!done)$('#lvq').querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{const j=+b.dataset.j;rec.tr[cur]=j;if(j===l.a&&!rec.ok.includes(cur))rec.ok.push(cur);pushMine();draw()})};
   draw()}
 function dSort(B,st,z){const c=cmpOf(DEVG);const lab={n:'n',p:'p',b:'كلاهما'};
@@ -1121,12 +1138,13 @@ function baseURL(){return location.href.split('#')[0]}
 function renderAdm(){const A=$('#adm');const admin=SY.mode==='admin';
   const login=SY.on&&!admin?`<div class="box"><b>الدخول بالرمز السري</b><div class="row"><input id="pin" type="password" inputmode="numeric" autocomplete="off" aria-label="الرمز السري"><button type="button" id="pinGo">دخول</button></div><p class="mini" id="pinMsg">يُدخل الرمز مرة واحدة على جهاز أ. سارة فقط، فيصبح هو المتحكّم في الأجهزة.</p></div>`:'';
   A.innerHTML=`<div class="box"><div class="row" style="justify-content:space-between"><b>حالة المزامنة</b><span id="admSync">${syncText()}</span></div>${SY.on?'':'<p class="mini">لم يُلصق رابط المزامنة بعد في المنصة؛ تعمل الأجهزة منفصلة (للمعاينة فقط).</p>'}</div>${login}
+  ${canControl()?`<div class="box rstbox"><b>🔄 بدء حصة جديدة</b><p class="mini">يمسح كل شيء من كل الأجهزة: إجابات الطالبات ونقاط المجموعات، والقلوب، والتخمين السري، والرسائل الصوتية، ويرجع الأجهزة إلى شاشة الانتظار. استخدميه بعد البروفة وقبل الحصة.</p><div class="row"><button type="button" class="warn" id="rst">${resetArm?'⚠️ اضغطي مرة ثانية للتأكيد':'مسح كل البيانات والبدء من جديد'}</button><span class="mini" id="rstMsg"></span></div></div>`:''}
   ${canControl()?`<div class="box"><b>النشاط المفتوح على أجهزة المجموعات</b><div class="stlist">${[['','شاشة الانتظار']].concat(ORDER.map(k=>[k,ST[k].t])).map(([k,t])=>`<button type="button" data-st="${k}" aria-pressed="${(CTL.st||'')===k}">${t}</button>`).join('')}</div>
    ${CTL.st==='quiz'?`<div class="row"><span class="mini">المسابقة: السؤال ${CTL.q+1} من 5</span><button type="button" class="ghost" data-q="-1">السابق</button><button type="button" data-q="rv">إظهار الإجابة</button><button type="button" data-q="1">التالي</button></div>`:''}</div>
   <div class="box"><b>رسالة إلى المجموعات</b><div class="row"><select id="mto" style="font:inherit;padding:6px 10px;border-radius:10px;border:1.5px solid var(--line)"><option value="-1">كل المجموعات</option>${GROUPS.map((g,i)=>`<option value="${i}">${g.en}</option>`).join('')}</select><input id="mtx" style="flex:1;min-width:12em;width:auto;text-align:start;direction:rtl" placeholder="نص قصير يظهر على الأجهزة"></div>
    <div class="row"><button type="button" id="msend">إرسال النص</button><button type="button" class="ghost" id="mrec">🎙️ تسجيل رسالة صوتية (15 ثانية)</button><button type="button" class="ghost" id="mclr">إخفاء الرسالة</button><span class="mini" id="mst"></span></div></div>`:''}
   <div class="box"><b>باركود الدخول</b><p class="mini">يُطبع باركود كل مجموعة ويوضع على طاولتها؛ وباركود الضيوف يفتح صفحة المتابعة بكلمة مرور.</p><div class="qrs2">${GROUPS.map((g,i)=>{const u=baseURL()+'#g'+(i+1);return `<figure style="--tone:${g.tone}"><div class="qr">${qrSVG(u,'#3A1C2C')}</div><figcaption>${g.flag}${g.en}</figcaption><a href="${u}">${u}</a></figure>`}).join('')}<figure style="--tone:var(--rosegold)"><div class="qr">${qrSVG(baseURL()+'#guests','#3A1C2C')}</div><figcaption style="font-family:var(--f-disp)">🌟 ضيوفنا الكرام</figcaption><a href="${baseURL()}#guests">${baseURL()}#guests</a></figure></div></div>
-  ${canControl()?`<div class="box"><b>بدء حصة جديدة</b><p class="mini">يمسح كل الإجابات والقلوب من الأجهزة (للتجربة قبل الحصة).</p><div class="row"><button type="button" class="warn" id="rst">${resetArm?'تأكيد المسح':'مسح كل البيانات'}</button></div></div>`:''}`;
+`;
   if($('#pinGo')){$('#pinGo').onclick=()=>{const v=$('#pin').value.trim();api({a:'pin',pin:v}).then(j=>{if(j&&j.ok){SY.pin=v;SY.mode='admin';SY.ctlSig='';try{localStorage.setItem('ss-pin',v)}catch(e){}renderAdm();renderABar()}else $('#pinMsg').textContent='الرمز غير صحيح'})};$('#pin').onkeydown=e=>{if(e.key==='Enter')$('#pinGo').click()}}
   A.querySelectorAll('[data-st]').forEach(b=>b.onclick=()=>{CTL.st=b.dataset.st||null;CTL.q=0;CTL.rv=0;pushCtl();renderAdm()});
   A.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{const q=b.dataset.q;if(q==='rv')CTL.rv=1;else{CTL.q=Math.max(0,Math.min(4,CTL.q+ +q));CTL.rv=0}pushCtl();renderAdm()});
@@ -1134,8 +1152,8 @@ function renderAdm(){const A=$('#adm');const admin=SY.mode==='admin';
     $('#mclr').onclick=()=>{CTL.msg=null;pushCtl();$('#mst').textContent='أُخفيت الرسالة'};
     $('#mrec').onclick=recVoice}
   if($('#rst'))$('#rst').onclick=()=>{if(!resetArm){resetArm=1;renderAdm();setTimeout(()=>{resetArm=0;if(!$('#v-adm').hidden)renderAdm()},5000);return}
-    resetArm=0;CTL={st:null,q:0,rv:0,msg:null};HEARTS=GROUPS.map(()=>0);GH=GROUPS.map(()=>0);LIKES={};for(let g=0;g<GROUPS.length;g++)GRP[g]={};
-    if(SY.on)api({a:'reset',pin:SY.pin}).then(()=>poll());else{try{['ss-ctl','ss-G0','ss-G1','ss-G2','ss-G3','ss-G4','ss-me','ss-scan','ss-likes','ss-cheer'].forEach(k=>localStorage.removeItem(k))}catch(e){}ME=null}
+    resetArm=0;CTL={st:null,q:0,rv:0,msg:null,z:Date.now()};try{wipeLocalSS(CTL.z)}catch(e){}HEARTS=GROUPS.map(()=>0);GH=GROUPS.map(()=>0);LIKES={};for(let g=0;g<GROUPS.length;g++)GRP[g]={};
+    if(SY.on)api({a:'reset',pin:SY.pin}).then(j=>{SY.ctlSig='';pushCtl();poll();const m=$('#rstMsg');if(m)m.textContent=j&&j.ok?'✓ تم المسح من كل الأجهزة':'تعذّر المسح، أعيدي المحاولة'});else{try{['ss-ctl','ss-G0','ss-G1','ss-G2','ss-G3','ss-G4','ss-me','ss-scan','ss-likes','ss-cheer'].forEach(k=>localStorage.removeItem(k))}catch(e){}ME=null}
     Object.keys(SCAN).forEach(k=>delete SCAN[k]);refreshLive();renderAdm()}}
 async function recVoice(){const st=$('#mst'),b=$('#mrec');
   if(rec&&rec.state==='recording'){rec.stop();return}
@@ -1314,6 +1332,58 @@ function renderGSecret(){const b=$('#gstSec');if(!b)return;b.hidden=!GOK;if(b.hi
     const id='gu'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),rec={nm,m,t:secNow()};
     if(SY.on)api({a:'gset',g:4,v:JSON.stringify({[id]:rec})});try{localStorage.setItem('ss-gsec',JSON.stringify(rec))}catch(e){}b._st='';renderGSecret()}}
 {const _rg2=renderGuest;renderGuest=function(){_rg2();renderGSecret()}}
+
+/* --- 7. one device, many students: pass the device in turn for individual activities --- */
+const ROT={n:0,fin:{}};const RECS={};
+function rotGroup(){return STUD.filter(s=>s.g===DEVG)}
+function getRec(n){if(RECS[n])return RECS[n];let r=null;try{r=JSON.parse(SY.d['d'+n]||'null')}catch(e){}
+  if(!r){try{const o=JSON.parse(localStorage.getItem('ss-rec-'+n)||'null');if(o)r=o}catch(e){}}
+  return RECS[n]=r&&r.a?r:{n,g:DEVG,a:{}}}
+function flushRec(r){if(!r||!r.n)return;try{localStorage.setItem('ss-rec-'+r.n,JSON.stringify(r))}catch(e){}if(SY.on)api({a:'set',k:'d'+r.n,v:JSON.stringify(r),w:1})}
+function rotKey(st){return st==='quiz'?'quiz'+CTL.q:st}
+function isDone(st,n){const r=getRec(n),a=r.a||{},z=ST[st];if(ROT.fin[rotKey(st)+':'+n])return true;if(!z)return false;
+  if(z.type==='mcq')return a[st]!=null;
+  if(z.type==='lab'){const q=(a[st]&&a[st].q)||[];return z.qs&&q.filter(x=>x!=null).length>=z.qs.length}
+  if(z.type==='levels'){const v=a.lv1||{};return Object.keys(v.tr||{}).length>=1}
+  if(z.type==='quiz')return a.quiz&&a.quiz[CTL.q]!=null;
+  if(z.type==='exit')return !!(a.exit&&a.exit.l);return false}
+function rotActive(){const z=ST[CTL.st];return SY.mode==='group'&&z&&z.scope==='ind'}
+function nextPending(st,after){const L=rotGroup().filter(s=>!isDone(st,s.n));if(!L.length)return null;if(after){const i=rotGroup().findIndex(s=>s.n===after);const rest=rotGroup().slice(i+1).concat(rotGroup().slice(0,i+1)).filter(s=>!isDone(st,s.n));return rest[0]||null}return L[0]}
+const first=n=>esc(String(STUD[n-1].name).split(' ')[0]);
+function startTurn(n){if(ME&&ME.n&&ME.n!==n)flushRec(ME);ROT.n=n;ME=getRec(n);ME.g=DEVG;saveMe();renderDev();window.scrollTo({top:0,behavior:'smooth'})}
+function drawHandoff(st){const box=$('#dact');if(!box)return;const nx=nextPending(st,ROT.n),done=rotGroup().filter(s=>isDone(st,s.n));
+  if(!nx){box.innerHTML=`<div class="act hand all"><div class="hand-ic">🎉</div><h3>أنهت كل طالبات المجموعة هذا النشاط</h3><p>${done.map(s=>first(s.n)).join(' · ')}</p><p class="mini">بانتظار أ. سارة للنشاط التالي…</p></div>`;return}
+  box.innerHTML=`<div class="act hand"><div class="hand-ic">📲</div><small>دور الطالبة</small><h3 class="hand-nm">${esc(STUD[nx.n-1].name)}</h3>
+   <p>${ROT.n&&isDone(st,ROT.n)?`سلّمت <b>${first(ROT.n)}</b> الجهاز… `:''}خذي الجهاز وابدئي حلّ «${ST[st].t}» بنفسكِ.</p>
+   <button type="button" class="go hand-go" data-turn="${nx.n}">أنا ${first(nx.n)}… ابدئي ▶</button>
+   <details><summary>طالبة أخرى؟</summary><div class="hand-alt">${rotGroup().filter(s=>!isDone(st,s.n)&&s.n!==nx.n).map(s=>`<button type="button" data-turn="${s.n}">${first(s.n)}</button>`).join('')||'<span class="mini">لا توجد</span>'}</div></details>
+   <div class="hand-prog">${rotGroup().map(s=>`<span class="${isDone(st,s.n)?'ok':s.n===nx.n?'now':''}">${isDone(st,s.n)?'✓ ':''}${first(s.n)}</span>`).join('')}</div></div>`;
+  box.querySelectorAll('[data-turn]').forEach(b=>b.onclick=()=>startTurn(+b.dataset.turn))}
+function handBar(){if(!rotActive())return;const st=CTL.st,box=$('#dact');if(!box||!ME||!ME.n)return;let bar=$('#handBar');
+  const done=isDone(st,ME.n),nx=nextPending(st,ME.n);
+  const h=done?`<div class="handbar on"><b>✓ أحسنتِ يا ${first(ME.n)}! انتهى دوركِ</b>${nx?`<span>${ST[st].bk?`📘 أكملي الباقي في <b>دليلكِ صفحة ${ST[st].bk}</b>، و`:'اقرئي التغذية الراجعة، ثم '}<b>سلّمي الجهاز إلى زميلتكِ: ${first(nx.n)}</b> 👉</span><button type="button" class="go" data-turn="${nx.n}">سلّمتُ الجهاز إلى ${first(nx.n)} ←</button>`:`<span>أنهت كل طالبات المجموعة 🎉</span><button type="button" class="go" data-endrot="1">تم</button>`}</div>`
+   :`<div class="handbar"><span>الجهاز الآن مع: <b>${first(ME.n)}</b></span><button type="button" class="ghost" data-fin="1">أنهيتُ دوري</button></div>`;
+  if(!bar){bar=document.createElement('div');bar.id='handBar';box.after(bar)}if(bar._h!==h){bar._h=h;bar.innerHTML=h;
+    bar.querySelectorAll('[data-turn]').forEach(b=>b.onclick=()=>startTurn(+b.dataset.turn));
+    const f=bar.querySelector('[data-fin]');if(f)f.onclick=()=>{ROT.fin[rotKey(st)+':'+ME.n]=1;flushRec(ME);handBar()};
+    const e=bar.querySelector('[data-endrot]');if(e)e.onclick=()=>{flushRec(ME);ROT.n=0;renderDev()};
+    if(done){bar.scrollIntoView({behavior:'smooth',block:'center'});try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(x){}}}}
+{const _rd=renderDev;renderDev=function(){
+  if(rotActive()){const st=CTL.st;if(!ROT.n||!rotGroup().some(s=>s.n===ROT.n)||(isDone(st,ROT.n)&&ROT.shown===rotKey(st)+':'+ROT.n)){
+      if(!ME||!ME.n){ME=getRec((rotGroup()[0]||{}).n||0)}_rd();const B=$('#abody');drawHandoff(st);const hb=$('#handBar');if(hb)hb.remove();return}
+    ME=getRec(ROT.n);_rd();ROT.shown='';handBar();return}
+  const hb=$('#handBar');if(hb)hb.remove();if(SY.mode==='group'&&!ME)ME={n:0,g:DEVG,a:{}};_rd()}}
+{const _pm=pushMine;pushMine=function(){_pm();if(ME&&ME.n){RECS[ME.n]=ME;try{localStorage.setItem('ss-rec-'+ME.n,JSON.stringify(ME))}catch(e){}}setTimeout(()=>{handBar();if(rotActive()&&ME&&ME.n&&isDone(CTL.st,ME.n))ROT.shown=rotKey(CTL.st)+':'+ME.n},50)}}
+if(SY.mode==='group'){if(!ME)ME={n:0,g:DEVG,a:{}};try{renderDev()}catch(e){}}
+
+/* ========== 8) بدء حصة جديدة: مسح البيانات من كل الأجهزة ========== */
+function wipeLocalSS(z){try{localStorage.setItem('ss-z',String(z||0));const ks=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(/^ss-(rec-|me$|cheer$|gsec$|scan$|likes$|G\d$|ctl$|vseen)/.test(k))ks.push(k)}ks.forEach(k=>localStorage.removeItem(k))}catch(e){}
+  for(const k in RECS)delete RECS[k];ROT.n=0;ROT.fin={};ROT.shown='';try{Object.keys(SCAN).forEach(k=>delete SCAN[k])}catch(e){}
+  try{for(const k in SY.d)if(/^(d\d+|x\d|G\d|hearts|likes|gmsg)$/.test(k))delete SY.d[k]}catch(e){}
+  if(SY.mode==='group')ME={n:0,g:DEVG,a:{}};else if(SY.mode!=='admin')ME=null}
+setInterval(()=>{if(!SY.ok&&SY.on)return;const cz=+(CTL.z||0);let lz=null;try{lz=localStorage.getItem('ss-z')}catch(e){}
+  if(lz===null){let old=false;try{old=Object.keys(localStorage).some(k=>/^ss-(rec-|me$)/.test(k))}catch(e){}if(!(old&&cz)){try{localStorage.setItem('ss-z',String(cz))}catch(e){}return}lz='0'}
+  if(+lz!==cz){wipeLocalSS(CTL.z);try{if(SY.mode==='group')renderDev();refreshLive()}catch(e){}}},1000);
 
 </script>
 </body>
