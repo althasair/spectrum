@@ -440,6 +440,11 @@ body{font-size:17px}.sub{font-size:15px}.mini{font-size:13.5px}
 .secr{grid-template-columns:7.5em minmax(0,1fr)}.secr select,#secN{width:100%;max-width:100%;min-width:0;font:inherit;padding:6px 8px;border-radius:10px;border:1.5px solid var(--line);background:#fff}
 #abody label{display:grid;gap:4px;min-width:0}
 .dgoal.dg1{border-inline-start-color:var(--s2)}
+.lvl{display:grid;grid-template-columns:1fr 1fr;gap:8px}.lvg{background:#fff;border:1px solid var(--line);border-top:3px solid var(--tone);border-radius:12px;padding:6px 8px;display:grid;gap:3px;font-size:clamp(10px,1.15vw,15px)}
+.lvg>b{display:flex;align-items:center;gap:6px;font-family:var(--f-en);color:var(--tone)}.lvg .flg{width:20px;height:15px;border-radius:2px}
+.lvr{display:grid;grid-template-columns:1fr repeat(3,1.7em);gap:4px;align-items:center}.lvr i{font-style:normal;text-align:center;border-radius:6px;font-weight:800;line-height:1.6;background:#F3E7EB;color:#B9A2AD}
+.lvr i.ok{color:#fff}.lvr i.s0.ok{background:var(--s2)}.lvr i.s1.ok{background:var(--s4)}.lvr i.s2.ok{background:var(--s5)}.lvr i.no{background:#FBE1E1;color:#C0392B}.lvr i.cur{background:#fff;color:var(--rose);outline:2px solid var(--rose);animation:mpulse 1.4s infinite}
+.lvk{margin:4px 0 0;text-align:center}
 .labsvg .pulse{animation:pl 1.2s ease-in-out infinite}@keyframes pl{50%{stroke-opacity:.25;fill-opacity:.05}}
 </style>
 </head>
@@ -920,7 +925,11 @@ function mcqLive(st){const z=ST[st],rs=recs(),cnt=z.o.map(()=>0);let n=0;rs.forE
   return `<div class="lh"><span>أجابت <b>${n}</b> من <b>${STUD.length}</b></span>${z.predict?'':`<button type="button" class="rev" data-rv="m${st}" ${rev?'hidden':''}>إظهار الصحيحة</button>`}</div>${cnt.map((c,i)=>`<div class="lbar ${rev&&i===z.a?'ok':''}"><span class="k">${AB[i]}</span><span class="t"><i style="width:${c/mx*100}%"></i></span><b>${c}</b></div>`).join('')}`}
 function hypWall(){return GROUPS.map((g,i)=>{const t=(GRP[i].hyp||'').trim();return `<div class="note2" style="--tone:${g.tone}"><div class="gn">${g.flag}${g.en}</div><p class="${t?'':'em'}">${t?esc(t):'بانتظار الفرضية…'}</p></div>`}).join('')}
 function groupLine(g,inner){const G=GROUPS[g];return `<div class="note2" style="--tone:${G.tone}"><div class="gn">${G.flag}${G.en}</div>${inner}</div>`}
-function lv1Live(){return `<div class="lh"><span>إنجاز المستويات في كل مجموعة</span></div><div class="wall">${GROUPS.map((g,i)=>{const rs=recs().filter(r=>r.g===i);const c=[0,0,0];rs.forEach(r=>{((r.a.lv1||{}).ok||[]).forEach(k=>c[k]++)});return groupLine(i,`<p>🩷 مستكشفة: ${c[0]} · 💜 محلّلة: ${c[1]} · 💛 مبتكرة: ${c[2]}</p>`)}).join('')}</div>`}
+function lv1Live(){const st=(r,i)=>{const v=(r.a.lv1||{});if((v.ok||[]).includes(i))return 'ok';if(v.tr&&v.tr[i]!=null)return 'no';if(v.cur===i)return 'cur';return ''};
+  const ic={ok:'✓',no:'✗',cur:'●','':'·'};
+  return `<div class="lh"><span>سُلّم كل طالبة: 🩷 مستكشفة ← 💜 محلّلة ← 💛 مبتكرة</span></div><div class="lvl">${GROUPS.map((g,gi)=>{const rs=recs().filter(r=>r.g===gi).sort((a,b)=>(a.n||99)-(b.n||99));
+    return `<div class="lvg" style="--tone:${g.tone}"><b>${g.flag}${g.en}</b>${rs.length?rs.map(r=>`<div class="lvr"><span>${esc(nameOf(r).split(' ')[0])}</span>${[0,1,2].map(i=>`<i class="s${i} ${st(r,i)}">${ic[st(r,i)]}</i>`).join('')}</div>`).join(''):'<div class="mini">لم تبدأ بعد</div>'}</div>`}).join('')}</div>
+   <p class="mini lvk">✓ أنجزت · ✗ حاولت · ● تعمل عليه الآن · · لم تصل بعد</p>`}
 function labLive(st){return `<div class="lh"><span>${st==='lab1'?'أنهين التجربة وأسئلتها':'وصلت الفجوة إلى الطرف'}</span></div><div class="board sm">${GROUPS.map((g,i)=>{const rs=recs().filter(r=>r.g===i);const d=rs.filter(r=>{const x=r.a[st];return x&&(st==='lab2'?x.s&&x.s.w:(x.q||[]).filter(v=>v!=null).length===2)}).length;
   const best=st==='lab2'?Math.min(...rs.map(r=>r.a.lab2&&r.a.lab2.s&&r.a.lab2.s.w?r.a.lab2.s.m:99)):99;return `<div class="brow" style="--tone:${g.tone};grid-template-columns:minmax(0,1fr) auto"><span class="bn" style="font-size:clamp(12px,1.4vw,18px)">${g.flag}${g.en}</span><b class="p" style="font-size:clamp(11px,1.3vw,16px)">${d} من ${rs.length||'—'}${best<99?` · ${best} خطوة`:''}</b></div>`}).join('')}</div>`}
 
