@@ -434,6 +434,9 @@ body{font-size:17px}.sub{font-size:15px}.mini{font-size:13.5px}
 .winp{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center}.winp>span{font-weight:800;color:var(--plum)}
 .winp button{font:inherit;font-weight:700;display:inline-flex;align-items:center;gap:6px;cursor:pointer;border-radius:999px;border:1.5px solid var(--rose);background:#fff;color:var(--rose);padding:.25em .9em}.winp .flg{width:22px;height:16px;border-radius:2px}
 .winb{font-size:clamp(16px,2.4vw,32px);font-weight:800;color:#fff;background:linear-gradient(90deg,#D9B26F,#E58AA6,#C98BC9);border-radius:999px;padding:.3em 1.2em;box-shadow:0 0 22px rgba(242,167,186,.8)}.winb b{font-family:var(--f-en)}
+.secf{display:grid;gap:8px}.secr{display:grid;grid-template-columns:8.5em 1fr;gap:8px;align-items:center}.secr span{display:flex;align-items:center;gap:6px}.secr .flg{width:24px;height:18px;border-radius:2px}.secr b{font-family:var(--f-en);color:var(--plum)}.secr select{font:inherit;padding:6px 8px;border-radius:10px;border:1.5px solid var(--line);background:#fff}
+.secbox{display:grid;gap:8px}.secl{display:flex;gap:16px;justify-content:center;font-size:clamp(12px,1.6vw,21px);color:var(--plum)}.secl b{color:var(--rose)}
+.wins{display:grid;gap:8px;justify-items:center}.winb small{font-size:.6em;display:block;opacity:.9}.winb i{font-style:normal;font-size:.7em}.winb em{font-style:normal;font-size:.7em;background:rgba(255,255,255,.25);border-radius:99px;padding:0 .5em}.winb.off{background:#E9D6DC;color:var(--mauve);box-shadow:none}
 .labsvg .pulse{animation:pl 1.2s ease-in-out infinite}@keyframes pl{50%{stroke-opacity:.25;fill-opacity:.05}}
 </style>
 </head>
@@ -487,6 +490,7 @@ body{font-size:17px}.sub{font-size:15px}.mini{font-size:13.5px}
   <section id="v-gst" hidden>
     <div><h2>ضيوفنا الكرام والتوجيه التربوي</h2><p class="sub">تابعوا عمل المجموعات الأربع مباشرة، وشجّعوا الطالبات بالقلوب.</p></div>
     <div id="gst" style="display:grid;gap:12px"></div>
+    <div class="box secbox" id="gstSec" hidden></div>
     <div class="box vbox" id="gstVoice" hidden></div>
   </section>
 
@@ -868,8 +872,8 @@ const SL=[
  {st:'ev2',h:()=>`${head('غلق الهدف الثاني · تقييم الزميلة','الهدف الثاني',4)}<div class="cols"><div class="qbig"><div class="qq">${ST.ev2.q}</div><div class="olist" data-olist="ev2">${ST.ev2.o.map((o,j)=>`<div data-j="${j}"><b>${AB[j]}</b> · ${o}</div>`).join('')}</div><div class="scanrow"><button type="button" class="scanbtn" data-q="ev2">📷 مسح بطاقات الطيف</button><span class="scanres" id="srev2">${scanSummary('ev2')}</span></div><p class="mini">بعد الإجابة: تتبادل كل طالبتين التفسير، وتصحّح كل منهما لزميلتها.</p></div><div class="live" data-live="mcq:ev2"></div></div>`},
  // ===== Closing =====
  {h:()=>`${head('نعود إلى فرضياتنا','الغلق')}<div class="cols"><div style="display:grid;gap:10px;align-content:start"><div class="def"><b>الحل</b><span>كل ذرة فوسفور تهب إلكتروناً حراً، وكل ذرة بورون تُحدث فجوة. وفي السنتيمتر المكعب الواحد ملايين الملايين من ذرات التطعيم… فيرتفع عدد حاملات الشحنة آلاف المرات.</span></div><div class="card2"><h4>وفي الخرسعة؟</h4><p>كل لوح يجمع طبقة من النوع <b>n</b> وطبقة من النوع <b>p</b>، وعند التقائهما تتكوّن <b>الوصلة الثنائية</b>: موضوع درسنا القادم.</p></div></div><div class="wall" data-live="hyp"></div></div>`},
- {h:()=>`${head('تبون تعرفون ليش…؟','الرسالة السرية')}<div class="tease"><p class="t1">لماذا اختيرت هذه الدول الأربع بالذات لتسمية مجموعاتنا؟</p><div class="tflags">${GROUPS.map(g=>`<span><i>${g.flag}</i><b>${g.en}</b></span>`).join('')}</div><p class="t2">افتحن الظروف المختومة… واقرأن إجاباتكنّ بصوتٍ عالٍ 📜</p><p class="t3">من اقتربت من السرّ؟ الآن نكشف الإجابة… ونختار الفائزة!</p></div>`},
- {sec:1,h:()=>`${head('سرّ الأسماء الأربعة','الرسالة السرية')}<div class="board cmpct">${[['Jordan','SiO₂','رمال السيليكا عالية النقاوة: المادة الخام التي يُستخلص منها السيليكون، والبلّورة التي يبدأ منها كل شيء'],['Morocco','P','أكبر احتياطي عالمي من صخر الفوسفات: مصدر الفوسفور، والنوع n'],['Türkiye','B','أكبر احتياطي عالمي من البورون: والنوع p'],['Qatar','☀','محطة الخرسعة: وصلات p-n تحوّل ضياء الشمس إلى كهرباء لقطر']].map((r,ri)=>{const g=GROUPS.find(x=>x.en===r[0]);return `<div class="brow ${ri<SECR?'sec-on':'sec-off'}" style="--tone:${g.tone};grid-template-columns:minmax(0,1.1fr) 3.4em minmax(0,3fr)"><span class="bn">${g.flag}${r[0]}</span><b class="p" style="text-align:center;font-family:var(--f-en);color:var(--rosegold);direction:ltr">${r[1]}</b><span style="font-size:clamp(11px,1.4vw,18px)">${r[2]}</span></div>`}).join('')}</div>${SECR>=4?`<div class="winp">${SECW?`<div class="winb">🏆 الفائزة بالرسالة السرية: <b>${SECW}</b></div>`:`<span>من الفائزة؟</span>${GROUPS.map(g=>`<button type="button" data-secw="Team ${g.en}">${g.flag}${g.en}</button>`).join('')}<button type="button" data-secw="ضيوفنا الكرام">🌟 ضيوفنا الكرام</button>`}</div>`:`<p class="mini" style="margin:0;text-align:center">اضغطي «التالي» لكشف الدولة التالية</p>`}${ay('وَسَخَّرَ لَكُم مَّا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ جَمِيعًا مِّنْهُ','سورة الجاثية: 13','معادن في باطن الأرض، سخّرها الله، فاكتشفها العلماء وصنعوا منها الرقائق والألواح.')}<p class="mini" style="margin:0">ومن احترامنا للعلماء: المهندس المصري <b>محمد عطا الله</b> وزميله <b>داون كانغ</b> اخترعا ترانزستور MOSFET عام 1959، وهو أكثر جهاز صُنع في تاريخ البشرية.</p>`},
+ {st:'sec',h:()=>`${head('تبون تعرفون ليش…؟','الرسالة السرية')}<div class="tease"><p class="t1">لماذا اختيرت هذه الدول الأربع بالذات لتسمية مجموعاتنا؟</p><div class="tflags">${GROUPS.map(g=>`<span><i>${g.flag}</i><b>${g.en}</b></span>`).join('')}</div><p class="t2">افتحن الظروف المختومة… واقرأن إجاباتكنّ بصوتٍ عالٍ 📜</p><p class="t3">خمّنّ على الأجهزة الآن: اربطن كل دولة بدرس اليوم… والفوز للأدقّ ثم الأسرع، من الطالبات ومن الحضور!</p><div class="live" data-live="sec"></div></div>`},
+ {sec:1,h:()=>`${head('سرّ الأسماء الأربعة','الرسالة السرية')}<div class="board cmpct">${[['Jordan','SiO₂','رمال السيليكا عالية النقاوة: المادة الخام التي يُستخلص منها السيليكون، والبلّورة التي يبدأ منها كل شيء'],['Morocco','P','أكبر احتياطي عالمي من صخر الفوسفات: مصدر الفوسفور، والنوع n'],['Türkiye','B','أكبر احتياطي عالمي من البورون: والنوع p'],['Qatar','☀','محطة الخرسعة: وصلات p-n تحوّل ضياء الشمس إلى كهرباء لقطر']].map((r,ri)=>{const g=GROUPS.find(x=>x.en===r[0]);return `<div class="brow ${ri<SECR?'sec-on':'sec-off'}" style="--tone:${g.tone};grid-template-columns:minmax(0,1.1fr) 3.4em minmax(0,3fr)"><span class="bn">${g.flag}${r[0]}</span><b class="p" style="text-align:center;font-family:var(--f-en);color:var(--rosegold);direction:ltr">${r[1]}</b><span style="font-size:clamp(11px,1.4vw,18px)">${r[2]}</span></div>`}).join('')}</div>${SECR>=4?secWinners():`<p class="mini" style="margin:0;text-align:center">اضغطي «التالي» لكشف الدولة التالية</p>`}${ay('وَسَخَّرَ لَكُم مَّا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ جَمِيعًا مِّنْهُ','سورة الجاثية: 13','معادن في باطن الأرض، سخّرها الله، فاكتشفها العلماء وصنعوا منها الرقائق والألواح.')}<p class="mini" style="margin:0">ومن احترامنا للعلماء: المهندس المصري <b>محمد عطا الله</b> وزميله <b>داون كانغ</b> اخترعا ترانزستور MOSFET عام 1959، وهو أكثر جهاز صُنع في تاريخ البشرية.</p>`},
  {st:'quiz',h:()=>{const k=quizK(),z=QUIZ[k],rv=quizRv();return `${head('مسابقة الطيف الختامية','الغلق')}<div class="qnav">${QUIZ.map((_,i)=>`<button type="button" data-qk="${i}" class="${i===k?'on':''}" aria-label="السؤال ${i+1}">${i+1}</button>`).join('')}</div><div class="cols"><div class="qbig"><div class="qq">${z.q}</div><div class="olist two" data-olist="quiz">${z.o.map((o,j)=>`<div data-j="${j}" class="${rv&&j===z.a?'ok':''}"><b>${AB[j]}</b> · ${o}</div>`).join('')}</div><div class="scanrow"><button type="button" class="scanbtn" data-q="quiz${k}">📷 مسح بطاقات الطيف</button><span class="scanres" id="srquiz${k}">${scanSummary('quiz'+k)}</span><button type="button" class="rev" data-qrv="1" ${rv?'hidden':''}>إظهار الإجابة</button></div><div class="live" data-live="quiz"></div></div><div class="board sm" data-live="board"></div></div>`}},
  {st:'exit',h:()=>`${head('بطاقة الخروج','الغلق')}<div class="cols"><div style="display:grid;gap:10px;align-content:start"><div class="card2"><h4>على جهازكِ</h4><p>«شيء تعلّمته اليوم… وسؤال ما زال عندي».</p></div><div class="card2"><h4>سؤال تحدٍّ لما بعد الحصة</h4><p>«لماذا تحتاج الخلية الشمسية إلى طبقتين من النوعين n وp؟» اطرحيه على Copilot، ثم تحقّقي من إجابته بما تعلّمتِه اليوم.</p></div>${ay('وَقُل رَّبِّ زِدْنِي عِلْمًا','سورة طه: 114','سؤالكِ الذي بقي معكِ بداية علم جديد… فالعلم لا ينتهي.',1)}</div><div class="olist" data-live="exit" style="align-content:start;overflow:auto"></div></div>`},
  {h:()=>`${head('لوحة التعزيز','قلوب لعالماتنا')}<div class="rwg" data-live="rw"></div>`},
@@ -940,7 +944,7 @@ const nameOf=r=>r.n?STUD[r.n-1].name:'جهاز المجموعة';
 function refreshLive(){
   document.querySelectorAll('[data-live]').forEach(el=>{const k=el.dataset.live;let h='';
     if(k.startsWith('mcq:'))h=mcqLive(k.slice(4));else if(k==='hyp')h=hypWall();else if(k==='lv1')h=lv1Live();else if(k.startsWith('lab:'))h=labLive(k.slice(4));
-    else if(k==='cmp')h=cmpLive();else if(k==='ai')h=aiLive();else if(k==='quiz')h=quizLive();else if(k==='board')h=boardHTML();else if(k==='exit')h=exitLive();else if(k==='rw')h=rwHTML(canControl()?'t':null);
+    else if(k==='cmp')h=cmpLive();else if(k==='sec')h=secLive();else if(k==='ai')h=aiLive();else if(k==='quiz')h=quizLive();else if(k==='board')h=boardHTML();else if(k==='exit')h=exitLive();else if(k==='rw')h=rwHTML(canControl()?'t':null);
     if(el._h!==h){el._h=h;el.innerHTML=h;el.querySelectorAll('[data-rv]').forEach(b=>b.onclick=()=>{REVEAL[b.dataset.rv]=1;el._h='';refreshLive();markOlist()});el.querySelectorAll('[data-like]').forEach(b=>b.onclick=()=>{sendLike(+b.dataset.like,'t');floatHearts(1)})}});
   markOlist();
   if(!$('#v-mon').hidden)renderMon();renderGems();if(typeof renderGroupDlg==='function')renderGroupDlg();if(typeof renderGuest==='function'&&$('#v-gst')&&!$('#v-gst').hidden)renderGuest();
@@ -966,7 +970,7 @@ function renderDev(){const box=$('#dev');const g=DEVG,G=GROUPS[g];
       ME=old&&old.n===n&&old.g===g?old:{n,g,a:{}};pushMine();renderDev()};return}
   const st=CTL.st;if(!st||!ST[st]){A.innerHTML=`<div class="act"><div class="wait"><div class="spin" aria-hidden="true"></div><h3>بانتظار أ. سارة…</h3><p class="mini">سيظهر النشاط هنا حين يُفتح، دون الحاجة إلى تحديث الصفحة.</p></div></div>${mirrorHTML()}`;return}
   const z=ST[st];A.innerHTML=`<div class="act"><span class="tag">${z.tag}</span><h3>${z.t}</h3><div id="abody" style="display:grid;gap:12px"></div></div>`;
-  const B=$('#abody');({text:dText,mcq:dMcq,lab:dLab,levels:dLv,sort:dSort,claim:dClaim,quiz:dQuiz,exit:dExit})[z.type](B,st,z)}
+  const B=$('#abody');({secret:(B,st,z)=>dSecret(B),text:dText,mcq:dMcq,lab:dLab,levels:dLv,sort:dSort,claim:dClaim,quiz:dQuiz,exit:dExit})[z.type](B,st,z)}
 const opts=(o,sel,cls)=>`<div class="opts">${o.map((x,j)=>`<button type="button" data-j="${j}" class="${cls?cls(j):(sel===j?'sel':'')}" ${sel!=null&&sel>=0?'disabled':''}><span class="lt">${AB[j]}</span><span>${x}</span></button>`).join('')}</div>`;
 function fbHTML(ok,ev,predict){return predict?`<div class="fb"><b>✓ سُجّل توقّعكِ</b>${ev}</div>`:`<div class="fb ${ok?'ok':'no'}"><b>${ok?'✓ أحسنتِ!':'نراجعها معاً'}</b>${ev}</div>`}
 function dText(B,st,z){const v=GRP[DEVG][st]||'';B.innerHTML=`<p>${z.q}</p><textarea id="tx" placeholder="${z.ph}">${esc(v)}</textarea><button type="button" class="go" id="sv">إرسال فرضية المجموعة</button><p class="mini" id="ms">${v?'أُرسلت فرضيتكنّ، ويمكن تعديلها.':'تكتب المسجّلة فرضية المجموعة بعد النقاش.'}</p>`;
@@ -1259,6 +1263,45 @@ function showGMsg(raw){if(SY.mode!=='group')return;let m=null;try{m=JSON.parse(r
   let au=null;const play=()=>{if(au){au.currentTime=0;au.play().catch(()=>{});return}api({a:'gvm'}).then(j=>{if(j&&j.v){au=new Audio(j.v);au.play().catch(()=>{});au.onended=()=>setTimeout(()=>c.classList.remove('on'),2500)}})};
   $('#gvp').onclick=play;$('#gvx').onclick=()=>{if(au)au.pause();c.classList.remove('on')};play()}
 {const _ing=ingest;ingest=function(d){_ing(d);try{if(SY.mode==='group')showGMsg(d.gmsg||'null')}catch(e){}}}
+
+/* --- 6. electronic guess for the secret message: students (on group devices) + guests --- */
+const SECOPT=['رمال السيليكا ← بلّورة السيليكون','الفوسفور ← النوع n','البورون ← النوع p','ألواح شمسية ← وصلات p-n'];
+const SECSHOW=[2,0,3,1];// display order of options
+ST.sec={t:'الرسالة السرية: لماذا هذه الدول الأربع؟',scope:'grp',type:'secret',tag:'التهيئة · الرسالة السرية'};
+if(!ORDER.includes('sec'))ORDER.unshift('sec');
+const secNow=()=>Math.round(Date.now()+(SY.off||0));
+const secScore=m=>(m||[]).filter((v,i)=>v===i).length;
+function secForm(pre){return `<div class="secf">${GROUPS.map((g,i)=>`<label class="secr"><span>${g.flag}<b lang="en">${g.en}</b></span><select data-sec="${pre}${i}"><option value="">— اختاري —</option>${SECSHOW.map(j=>`<option value="${j}">${SECOPT[j]}</option>`).join('')}</select></label>`).join('')}</div>`}
+function dSecret(B){const G=GRP[DEVG]||{},done=Object.keys(G).filter(k=>/^sec_\d+$/.test(k)).map(k=>+k.slice(4));
+  const left=STUD.filter(s=>s.g===DEVG&&!done.includes(s.n));
+  B.innerHTML=`<p>اربطي كل دولة بدرس اليوم. <b>الفوز للأدقّ ثم الأسرع</b>، وتجيب كل طالبة بنفسها على جهاز المجموعة.</p>
+   ${left.length?`<label>اسمكِ<select id="secN"><option value="">— الاسم —</option>${left.map(s=>`<option value="${s.n}" ${ME&&ME.n===s.n?'selected':''}>${esc(s.name)}</option>`).join('')}</select></label>${secForm('d')}<button type="button" class="go" id="secGo">تسليم التخمين</button><p class="mini" id="secM"></p>`:'<div class="fb ok"><b>✓ سلّمت كل طالبات المجموعة تخميناتهن</b></div>'}
+   ${done.length?`<p class="mini">سلّمت: ${done.map(n=>esc(STUD[n-1].name.split(' ')[0])).join('، ')}</p>`:''}`;
+  const go=$('#secGo');if(go)go.onclick=()=>{const n=+$('#secN').value,m=[0,1,2,3].map(i=>{const v=B.querySelector(`[data-sec="d${i}"]`).value;return v===''?null:+v});
+    if(!n){$('#secM').textContent='اختاري اسمكِ أولاً';return}if(m.some(v=>v===null)){$('#secM').textContent='أكملي الدول الأربع';return}
+    pushGroup(DEVG,{['sec_'+n]:{m,t:secNow()}});try{coach(secScore(m)===4?'ok':'ok')}catch(e){}toast('✓ سُلّم تخمينكِ');dSecret(B)}}
+function secGuests(){let o={};try{o=JSON.parse(SY.d.G4||'{}')}catch(e){}if(SY.gq&&SY.gq[4])Object.assign(o,SY.gq[4]);return Object.entries(o).filter(([k])=>/^gu/.test(k)).map(([k,v])=>v)}
+function secStudents(){const out=[];GROUPS.forEach((g,gi)=>{const G=GRP[gi]||{};Object.keys(G).forEach(k=>{if(/^sec_\d+$/.test(k)){const n=+k.slice(4),v=G[k];out.push({nm:STUD[n-1]?STUD[n-1].name:'',g:gi,m:v.m,t:v.t})}})});return out}
+function secStart(){return +(CTL.secT||0)}
+function secRank(a){return a.slice().sort((x,y)=>secScore(y.m)-secScore(x.m)||x.t-y.t)}
+function secTime(t){const s=secStart();if(!s||!t)return '';const d=Math.max(0,Math.round((t-s)/1000));return `${Math.floor(d/60)}:${String(d%60).padStart(2,'0')}`}
+function secLive(){const st=secStudents(),gu=secGuests();return `<div class="secl"><span>👩‍🎓 خمّنت <b>${st.length}</b> من ${STUD.length} طالبة</span><span>🌟 خمّن <b>${gu.length}</b> من الحضور</span></div>`}
+function secWinners(){const st=secRank(secStudents()),gu=secRank(secGuests());
+  const row=(x,lab)=>x?`<div class="winb"><small>${lab}</small> ${esc(x.nm)}${x.g!=null?` <i>· Team ${GROUPS[x.g].en}</i>`:''} <em>${secScore(x.m)}/4${secTime(x.t)?' · '+secTime(x.t):''}</em></div>`:`<div class="winb off"><small>${lab}</small> لا تخمينات بعد</div>`;
+  return `<div class="wins">${row(st[0],'🏆 الطالبة الفائزة')}${row(gu[0],'🌟 الفائزة من الحضور')}</div>`}
+/* open on devices: remember start time */
+{const _pc=pushCtl;pushCtl=function(){if(CTL.st==='sec'&&!CTL.secT)CTL.secT=secNow();if(CTL.st!=='sec'&&CTL.secT&&CTL.st)CTL.secT=CTL.secT;return _pc()}}
+/* guests form */
+function renderGSecret(){const b=$('#gstSec');if(!b)return;b.hidden=!GOK;if(b.hidden)return;let mine=null;try{mine=JSON.parse(localStorage.getItem('ss-gsec')||'null')}catch(e){}
+  if(b._st===(mine?'done':'form'))return;b._st=mine?'done':'form';
+  if(mine){b.innerHTML=`<b>🔐 الرسالة السرية</b><div class="fb ok"><b>✓ سُلّم تخمينكم باسم ${esc(mine.nm)}</b>تُعلن النتيجة في نهاية الحصة.</div>`;return}
+  b.innerHTML=`<b>🔐 شاركوا في تخمين الرسالة السرية</b><p class="mini">لماذا سُمّيت المجموعات بهذه الدول الأربع؟ اربطوا كل دولة بدرس اليوم. الفوز للأدقّ ثم الأسرع.</p>
+   <label>الاسم<input id="gsN" style="text-align:start;direction:rtl;width:100%;font:inherit;padding:6px 10px;border-radius:10px;border:1.5px solid var(--line)"></label>${secForm('g')}<div class="row"><button type="button" id="gsGo">تسليم التخمين</button><span class="mini" id="gsM"></span></div>`;
+  $('#gsGo').onclick=()=>{const nm=$('#gsN').value.trim(),m=[0,1,2,3].map(i=>{const v=b.querySelector(`[data-sec="g${i}"]`).value;return v===''?null:+v});
+    if(!nm){$('#gsM').textContent='اكتبوا الاسم';return}if(m.some(v=>v===null)){$('#gsM').textContent='أكملوا الدول الأربع';return}
+    const id='gu'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),rec={nm,m,t:secNow()};
+    if(SY.on)api({a:'gset',g:4,v:JSON.stringify({[id]:rec})});try{localStorage.setItem('ss-gsec',JSON.stringify(rec))}catch(e){}b._st='';renderGSecret()}}
+{const _rg2=renderGuest;renderGuest=function(){_rg2();renderGSecret()}}
 
 </script>
 </body>
