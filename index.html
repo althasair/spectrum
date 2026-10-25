@@ -1045,7 +1045,7 @@ function dLab(B,st,z){const rec=ME.a[st]=ME.a[st]||{q:[]};
   qs()}
 function bkBox(n,pg){const nm=n&&STUD[n-1]?esc(String(STUD[n-1].name).split(' ')[0]):'';return `<div class="bkb"><div class="bkb-ic">📘</div><b>${nm?nm+'، ':''}كمّلي الباقي في دليلكِ الخاص</b><span>افتحي <u>دليلكِ الخاص · صفحة ${pg}</u>، وأجيبي عن بقية المستويات كتابةً، وورّينا إبداعاتكِ في «ركن إبداعاتي» ✨</span><em>صفحة ${pg}</em></div>`}
 function dLv(B,st,z){const rec=ME.a.lv1=ME.a.lv1||{ok:[],tr:{}};let cur=rec.cur!=null?rec.cur:null;
-  const draw=()=>{const big=STUD.filter(x=>x.g===DEVG).length>=5;B.innerHTML=`<div class="lvls">${z.L.map((l,i)=>l.five&&!big?'':`<button type="button" data-l="${i}" style="background:${l.c}" aria-pressed="${cur===i}"><b>${l.n}</b><span>${l.p} ${l.p>1?'نقاط':'نقطة'}</span>${rec.ok.includes(i)?'<span class="ck">✓ أُنجز</span>':rec.tr[i]!=null?'<span class="ck">حاولتِ</span>':''}</button>`).join('')}</div><div id="lvq" style="display:grid;gap:10px"></div>`;
+  const draw=()=>{const big=STUD.filter(x=>x.g===DEVG).length>=5;B.innerHTML=`<div class="lvls">${z.L.map((l,i)=>l.five&&!big?'':`<button type="button" data-l="${i}" style="background:${l.c}" aria-pressed="${cur===i}"><b>${!big&&/محلّلة/.test(l.n)?"محلّلة":l.n}</b><span>${l.p} ${l.p>1?'نقاط':'نقطة'}</span>${rec.ok.includes(i)?'<span class="ck">✓ أُنجز</span>':rec.tr[i]!=null?'<span class="ck">حاولتِ</span>':''}</button>`).join('')}</div><div id="lvq" style="display:grid;gap:10px"></div>`;
     B.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{cur=+b.dataset.l;rec.cur=cur;draw()});
     if(cur==null){$('#lvq').innerHTML='<p class="mini">اختاري المستوى الذي يناسبكِ الآن… ويمكنكِ الارتقاء بعد الإجابة.</p>';return}
     const l=z.L[cur],v=rec.tr[cur],done=v!=null;
