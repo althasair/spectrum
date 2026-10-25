@@ -442,7 +442,7 @@ body{font-size:17px}.sub{font-size:15px}.mini{font-size:13.5px}
 .dgoal.dg1{border-inline-start-color:var(--s2)}
 .lvl{display:grid;grid-template-columns:1fr 1fr;gap:8px}.lvg{background:#fff;border:1px solid var(--line);border-top:3px solid var(--tone);border-radius:12px;padding:6px 8px;display:grid;gap:3px;font-size:clamp(10px,1.15vw,15px)}
 .lvg>b{display:flex;align-items:center;gap:6px;font-family:var(--f-en);color:var(--tone)}.lvg .flg{width:20px;height:15px;border-radius:2px}
-.lvr{display:grid;grid-template-columns:1fr repeat(3,1.7em);gap:4px;align-items:center}.lvr i{font-style:normal;text-align:center;border-radius:6px;font-weight:800;line-height:1.6;background:#F3E7EB;color:#B9A2AD}
+.lvr{display:grid;grid-template-columns:1fr repeat(4,1.7em);gap:4px;align-items:center}.lvr i{font-style:normal;text-align:center;border-radius:6px;font-weight:800;line-height:1.6;background:#F3E7EB;color:#B9A2AD}
 .lvr i.ok{color:#fff}.lvr i.s0.ok{background:var(--s2)}.lvr i.s1.ok{background:var(--s4)}.lvr i.s2.ok{background:var(--s5)}.lvr i.no{background:#FBE1E1;color:#C0392B}.lvr i.cur{background:#fff;color:var(--rose);outline:2px solid var(--rose);animation:mpulse 1.4s infinite}
 .lvk{margin:4px 0 0;text-align:center}
 .hand{display:grid;gap:10px;justify-items:center;text-align:center;padding:22px 16px!important;border:2px solid var(--rose)!important;background:linear-gradient(180deg,#fff,#FFF1F5)!important}
@@ -478,6 +478,8 @@ body{font-size:17px}.sub{font-size:15px}.mini{font-size:13.5px}
 .rwfab{width:42px;height:42px;left:10px;bottom:10px;font-size:18px;animation:none;opacity:.45;background:radial-gradient(circle at 35% 30%,#F7B8C8,#D27A94 75%);box-shadow:0 4px 10px -4px rgba(169,71,106,.6);transition:opacity .25s,transform .25s}
 .rwfab small{display:none}.rwfab:hover,.rwfab:focus-visible{opacity:1;transform:scale(1.1)}.rwfab.on{opacity:1}
 .rwdock{padding-bottom:60px}
+.lvls{grid-template-columns:repeat(2,minmax(0,1fr))}
+.slide .lv{gap:8px}.slide .lv div{padding:8px 14px;gap:2px;border-radius:14px}.slide .lv b{font-size:clamp(14px,1.5vw,19px)}.slide .lv span{font-size:clamp(11px,1.05vw,14px);line-height:1.5}
 .labsvg .pulse{animation:pl 1.2s ease-in-out infinite}@keyframes pl{50%{stroke-opacity:.25;fill-opacity:.05}}
 </style>
 </head>
@@ -627,7 +629,8 @@ const ST={
   qs:[{q:'ماذا حدث لقراءة الأميتر بعد التطعيم بالفوسفور؟',o:['نقصت','ازدادت كثيراً','بقيت كما هي'],a:1,ev:'الإلكترون الخامس حرّ الحركة، فيزداد عدد حاملات الشحنة ويرتفع التيار.'},
       {q:'نحو أي قطب تحرّك الإلكترون الحر عند تشغيل البطارية؟',o:['نحو القطب الموجب','نحو القطب السالب','لم يتحرّك'],a:0,ev:'الإلكترون سالب الشحنة، فيتّجه نحو القطب الموجب.'}],pts:2},
  lv1:{t:'اختاري مستواكِ… وارتقي',scope:'ind',type:'levels',bk:4,tag:'الهدف الأول · المستويات',
-  L:[{n:'مستكشفة',c:'var(--s2)',p:1,q:'كم إلكترون تكافؤ في ذرة الفوسفور؟',o:['3','4','5','6'],a:2,ev:'للفوسفور خمسة إلكترونات تكافؤ، فهو خماسي التكافؤ.'},
+  L:[{n:'مستكشفة (أ)',c:'var(--s2)',p:1,q:'كم إلكترون تكافؤ في ذرة الفوسفور؟',o:['3','4','5','6'],a:2,ev:'للفوسفور خمسة إلكترونات تكافؤ، فهو خماسي التكافؤ.'},
+     {n:'مستكشفة (ب)',c:'var(--s2)',p:1,q:'كم رابطة تساهمية تكوّنها ذرة الفوسفور مع ذرات السيليكون المجاورة لها في البلّورة؟',o:['3','4','5','8'],a:1,ev:'تحيط بذرة الفوسفور أربع ذرات سيليكون، فتكوّن معها أربع روابط تساهمية فقط.'},
      {n:'محلّلة',c:'var(--s4)',p:2,q:'لماذا يبقى إلكترون حر عند إضافة ذرة الفوسفور؟',o:['لأن الفوسفور يفقد إلكتروناته كلها','لأن أربعة من إلكتروناته تكوّن روابط مع أربع ذرات سيليكون، ولا يجد الخامس رابطة','لأن السيليكون يطرد أحد إلكتروناته','لأن الفوسفور موصل جيد بطبيعته'],a:1,ev:'أربعة إلكترونات تكوّن أربع روابط مع الجارات، ويبقى الخامس بلا رابطة فيصبح حراً.'},
      {n:'مبتكرة',c:'var(--s5)',p:3,q:'لماذا يُسمّى «النوع السالب» مع أن المادة متعادلة كهربائياً؟',o:['لأن المادة تكتسب شحنة سالبة من البطارية','لأن حاملات الشحنة الأغلبية فيه سالبة، وهي الإلكترونات، مع تساوي البروتونات والإلكترونات في المادة ككل','لأن ذرات الفوسفور سالبة الشحنة','لأن عدد الإلكترونات فيه أكبر من عدد البروتونات'],a:1,ev:'الاسم يصف نوع حاملات الشحنة الأغلبية (الإلكترونات)، أما المادة ككل فمتعادلة.'}]},
  ev1:{t:'تقويم الهدف الأول',scope:'ind',type:'mcq',tag:'الهدف الأول · الغلق',
@@ -961,7 +964,7 @@ function groupLine(g,inner){const G=GROUPS[g];return `<div class="note2" style="
 function lv1Live(){const st=(r,i)=>{const v=(r.a.lv1||{});if((v.ok||[]).includes(i))return 'ok';if(v.tr&&v.tr[i]!=null)return 'no';if(v.cur===i)return 'cur';return ''};
   const ic={ok:'✓',no:'✗',cur:'●','':'·'};
   return `<div class="lh"><span>سُلّم كل طالبة: 🩷 مستكشفة ← 💜 محلّلة ← 💛 مبتكرة</span></div><div class="lvl">${GROUPS.map((g,gi)=>{const rs=recs().filter(r=>r.g===gi).sort((a,b)=>(a.n||99)-(b.n||99));
-    return `<div class="lvg" style="--tone:${g.tone}"><b>${g.flag}${g.en}</b>${rs.length?rs.map(r=>`<div class="lvr"><span>${esc(nameOf(r).split(' ')[0])}</span>${[0,1,2].map(i=>`<i class="s${i} ${st(r,i)}">${ic[st(r,i)]}</i>`).join('')}</div>`).join(''):'<div class="mini">لم تبدأ بعد</div>'}</div>`}).join('')}</div>
+    return `<div class="lvg" style="--tone:${g.tone}"><b>${g.flag}${g.en}</b>${rs.length?rs.map(r=>`<div class="lvr"><span>${esc(nameOf(r).split(' ')[0])}</span>${[0,1,2,3].map(i=>`<i class="s${[0,0,1,2][i]} ${st(r,i)}">${ic[st(r,i)]}</i>`).join('')}</div>`).join(''):'<div class="mini">لم تبدأ بعد</div>'}</div>`}).join('')}</div>
    <p class="mini lvk">✓ أنجزت · ✗ حاولت · ● تعمل عليه الآن · · لم تصل بعد</p>`}
 function labLive(st){return `<div class="lh"><span>${st==='lab1'?'أنهين التجربة وأسئلتها':'وصلت الفجوة إلى الطرف'}</span></div><div class="board sm">${GROUPS.map((g,i)=>{const rs=recs().filter(r=>r.g===i);const d=rs.filter(r=>{const x=r.a[st];return x&&(st==='lab2'?x.s&&x.s.w:(x.q||[]).filter(v=>v!=null).length===2)}).length;
   const best=st==='lab2'?Math.min(...rs.map(r=>r.a.lab2&&r.a.lab2.s&&r.a.lab2.s.w?r.a.lab2.s.m:99)):99;return `<div class="brow" style="--tone:${g.tone};grid-template-columns:minmax(0,1fr) auto"><span class="bn" style="font-size:clamp(12px,1.4vw,18px)">${g.flag}${g.en}</span><b class="p" style="font-size:clamp(11px,1.3vw,16px)">${d} من ${rs.length||'—'}${best<99?` · ${best} خطوة`:''}</b></div>`}).join('')}</div>`}
@@ -1097,7 +1100,7 @@ const IND=ORDER.filter(k=>ST[k].scope==='ind');
 function cellOf(r,k){const v=r.a[k];if(v==null)return '<span class="w">·</span>';const z=ST[k];
   if(z.type==='mcq')return z.predict?'<span class="y">✓</span>':(v===z.a?'<span class="y">✓</span>':'<span class="n">✗</span>');
   if(z.type==='lab'){const c=(v.q||[]).filter((x,i)=>x===z.qs[i].a).length;return `<span class="${c===2?'y':c?'':'n'}">${k==='lab2'&&v.s&&v.s.w?'◆':''}${c}/2</span>`}
-  if(k==='lv1')return `<span class="y">${(v.ok||[]).map(i=>['م','ح','ب'][i]).join('')||'·'}</span>`;
+  if(k==='lv1')return `<span class="y">${(v.ok||[]).map(i=>['م','م','ح','ب'][i]).join('')||'·'}</span>`;
   if(k==='quiz'){const c=Object.entries(v).filter(([i,x])=>QUIZ[i]&&x===QUIZ[i].a).length;return `<span>${c}/5</span>`}
   if(k==='exit')return v.l?'<span class="y">✓</span>':'<span class="w">·</span>';return '✓'}
 function renderMon(){$('#monSub').innerHTML=`${syncText()} · النشاط المفتوح: <b>${CTL.st?ST[CTL.st].t:'لا يوجد'}</b>`;
