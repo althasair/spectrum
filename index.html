@@ -595,24 +595,24 @@ const GROUPS=[{"en": "Jordan", "c": "jo", "tone": "#2E6B58", "flag": "<svg class
 const SYNC_URL='https://script.google.com/macros/s/AKfycbxyX7zWQHQwWsIDsDj5sqrWK29auzIYAKZRb9ZssupjakpwSI3DJVr4y66YvZRPaKNn/exec';
 // أسماء الطالبات: [الاسم، رقم المجموعة 0..3] — المجموعات بالترتيب: Jordan, Morocco, Türkiye, Qatar · Korea, Qatar
 const NAMES=[ // الحادي عشر 3 — الرقم = رقم الطالبة في الكشف = رقم بطاقة الطيف
- ["يمنى بهاءالدين حمدي شحادة الكحلوت", 0],
- ["وضحى ناصر عمير الرمزاني النعيمي", 1],
- ["نوران فتحي المغراوي", 2],
- ["مريم وحيد طرش", 3],
- ["مريم معتز احمد شحاده", 0],
- ["مريم طارق جاسم محمد التميمي", 1],
+ ["يمنى بهاء الدين حمدي", 1],
+ ["وضحى ناصر عمير", 0],
+ ["نوران فتحي المغراوي", 3],
+ ["مريم وحيد طرش", 0],
+ ["مريم معتز أحمد", 3],
+ ["مريم طارق جاسم", 3],
  ["لين حكم الزعيم", 2],
- ["لمى وائل ابونايل", 3],
- ["لجين مروان صالح الدروبي", 0],
- ["فاطمه جواد ابراهيم محمد بوكشيشه", 1],
+ ["لمى وائل أبو نايل", 3],
+ ["لجين مروان صالح", 2],
+ ["فاطمة جواد إبراهيم", 1],
  ["شام فايز الناصير", 2],
- ["ساره امين بن عبدالله همومي", 3],
- ["ريماس تامر فيصل عبدالمحسن ابوخزيم", 0],
- ["رهف منصور حسين البخيت", 1],
- ["رنا السيد محمد عبدالمقصود العزازي", 2],
- ["ربى رفعت جميل سماره", 3],
- ["حنين ماهر محمود السيد حسن", 0],
- ["جنى احمد عبدربه العقر", 1]];
+ ["سارة أمين بن عبدالله", 0],
+ ["ريماس تامر فيصل", 1],
+ ["رهف منصور حسين", 1],
+ ["رنا السيد محمد", 0],
+ ["ربى رفعت جميل", 0],
+ ["حنين ماهر محمود", 3],
+ ["جنى أحمد عبدربه", 2]];
 /* ===================================================== */
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -1432,6 +1432,7 @@ function rwBurst(x,y){for(let i=0;i<7;i++){const h=document.createElement('div')
   document.body.appendChild(h);requestAnimationFrame(()=>{h.style.transform=`translate(${(Math.random()-.5)*120}px,-${60+Math.random()*80}px)`;h.style.opacity='0'});setTimeout(()=>h.remove(),1200)}}
 setInterval(()=>{try{if(!$('#v-show').hidden)rwDock()}catch(e){}},1500);
 document.addEventListener('keydown',e=>{if($('#v-show').hidden||e.target.closest('input,textarea,select'))return;if((e.key==='h'||e.key==='H'||e.key==='ا')&&canControl()){RWD.open=!RWD.open;rwDock()}else if(e.key==='Escape'&&RWD.open){RWD.open=false;rwDock()}});
+
 
 </script>
 </body>
