@@ -528,6 +528,31 @@ table.fcmp.fin{flex:none}.fcmp.fin th,.fcmp.fin td{padding:.8% 2%;font-size:clam
 .sicrys .qset .qi{font-size:clamp(10px,1.25vw,17px)}.sicrys .ayah span{display:none}
 .sicrys .labsvg.big{display:grid;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr)}.sicrys .labsvg .labsvg{width:100%;height:100%;min-height:0;padding:0}.sicrys .labsvg .labsvg svg{width:100%;height:100%}
 .bx3{gap:1.2%}.bx3 .card2{padding:1.4% 2.2%;gap:3px}.bx3 .card2 h4{font-size:clamp(12px,1.6vw,21px)}.bx3 ul{gap:2px}.bx3 li{font-size:clamp(10px,1.32vw,17.5px);line-height:1.45}
+
+.sc-camsel{position:absolute;top:8px;inset-inline:8px;display:flex;gap:6px;justify-content:flex-end;z-index:2}
+.sc-camsel select,.sc-camsel button{font:inherit;font-size:13px;border:0;border-radius:999px;padding:5px 12px;background:rgba(255,255,255,.92);color:var(--plum);cursor:pointer;max-width:60%}
+.sc-hint{margin:0;font-size:12.5px;color:rgba(255,255,255,.75);line-height:1.5}
+.sc-names button{font:inherit;font-size:13px;border:0;border-radius:999px;padding:3px 10px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.75);cursor:pointer}
+.sc-names button b{background:#fff;color:var(--plum);border-radius:999px;padding:0 6px;margin-inline-start:4px}
+.sc-names button.on{background:var(--s2);color:#fff}.sc-names button.right{background:#3E9B6B;color:#fff}.sc-names button.wrong{background:#9B3E52;color:#fff}
+@media (max-width:820px){.scan .sc-body{grid-template-columns:1fr!important;grid-template-rows:minmax(240px,45vh) auto!important;overflow:auto}}
+.snav .wkbtn{width:auto!important;height:44px;padding:0 18px;font-size:15px!important;font-weight:700;background:var(--plum)!important}
+.wkdlg{position:fixed;inset:0;z-index:90;background:linear-gradient(160deg,#FFF8F5,#F7E9EE);display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:10px;padding:14px 18px;overflow:hidden}
+.wkdlg[hidden]{display:none}
+.wk-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.wk-top>b{font-family:var(--f-disp);font-size:clamp(18px,2.4vw,32px);color:var(--plum)}
+.wk-tools{display:flex;gap:8px;flex-wrap:wrap}.wk-tools button,.wk-tabs button{font:inherit;font-weight:700;border:1px solid var(--line);background:#fff;color:var(--plum);border-radius:999px;padding:6px 14px;cursor:pointer}
+.wk-tools .wk-x{background:var(--rose);color:#fff;border:0;width:40px;padding:6px 0}
+.wk-tabs{display:flex;gap:6px;flex-wrap:wrap}.wk-tabs button{font-size:13px;padding:4px 12px}.wk-tabs button[aria-pressed="true"]{background:var(--plum);color:#fff;border-color:var(--plum)}
+.wk-grid{display:grid;gap:10px;min-height:0;overflow:auto}
+.wk-g{background:#fff;border-radius:16px;border-top:6px solid var(--tone);box-shadow:0 2px 10px rgba(86,38,58,.08);padding:10px 12px;display:flex;flex-direction:column;gap:8px;min-height:0;overflow:auto}
+.wk-g h4{margin:0;display:flex;align-items:center;gap:8px;font-family:'Sansita Swashed',var(--f-disp);color:var(--tone);font-size:clamp(16px,1.9vw,26px)}.wk-g h4 .flg{width:30px;height:22px;border-radius:3px}
+.wk-st{border-bottom:1px dashed var(--line);padding-bottom:6px}.wk-st:last-child{border:0}
+.wk-nm{font-weight:800;color:var(--plum);font-size:clamp(13px,1.35vw,19px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wk-ans{font-size:clamp(13px,1.35vw,19px);line-height:1.55;color:#3B2230}.wk-big{margin:0;font-size:clamp(15px,1.6vw,22px);line-height:1.6}
+.wk-l{display:inline-grid;place-items:center;min-width:1.6em;height:1.6em;border-radius:50%;background:var(--rose);color:#fff;font-size:.85em}
+.wk-ok{font-style:normal;color:#2E7D5B;font-weight:800}.wk-wait{color:#9C8A93;font-size:.9em}
+.wk-cls{display:grid;grid-template-columns:1fr auto;gap:4px 10px;font-size:clamp(12px,1.25vw,17px)}.wk-cls b{color:var(--plum)}
+@media (max-width:820px){.wk-grid{grid-template-columns:1fr!important}}
 .labsvg .pulse{animation:pl 1.2s ease-in-out infinite}@keyframes pl{50%{stroke-opacity:.25;fill-opacity:.05}}
 </style>
 </head>
@@ -553,7 +578,7 @@ table.fcmp.fin{flex:none}.fcmp.fin th,.fcmp.fin td{padding:.8% 2%;font-size:clam
   <!-- presentation -->
   <section id="v-show" hidden>
     <div class="stage" id="stage"><div class="slide" id="slide"></div></div>
-    <div class="snav"><button type="button" id="sPrev" aria-label="الشريحة السابقة">→</button><span id="sNum"></span><button type="button" id="sNext" aria-label="الشريحة التالية">←</button></div>
+    <div class="snav"><button type="button" id="sPrev" aria-label="الشريحة السابقة">→</button><span id="sNum"></span><button type="button" id="sNext" aria-label="الشريحة التالية">←</button><button type="button" id="wkBtn" class="wkbtn">👀 أعمال الطالبات</button></div>
     <div class="abar" id="abar"></div>
   </section>
 
@@ -618,11 +643,11 @@ table.fcmp.fin{flex:none}.fcmp.fin th,.fcmp.fin td{padding:.8% 2%;font-size:clam
 <div class="scan" id="scan" hidden role="dialog" aria-modal="true" aria-labelledby="scQ">
   <div class="sc-top"><b id="scQ"></b><button type="button" id="scClose" aria-label="إغلاق المسح">✕</button></div>
   <div class="sc-body">
-    <div class="sc-cam"><video id="scV" playsinline muted></video><canvas id="scO"></canvas><div class="sc-msg" id="scMsg"></div></div>
+    <div class="sc-cam"><video id="scV" playsinline muted autoplay></video><canvas id="scO"></canvas><div class="sc-msg" id="scMsg"></div><div class="sc-camsel"><select id="scCam" aria-label="اختيار الكاميرا"></select><button type="button" id="scRetry">🔄 تشغيل الكاميرا</button></div></div>
     <div class="sc-side">
       <div class="sc-count"><span id="scN">0</span> من <span id="scT">18</span> أجبن</div>
       <div class="sc-bars" id="scBars"></div>
-      <div class="sc-names" id="scNames"></div>
+      <p class="sc-hint">✋ لا تعمل الكاميرا أو لم تُقرأ بطاقة؟ اضغطي على اسم الطالبة لإدخال حرفها يدوياً (أ ← ب ← ج ← د ← بدون).</p><div class="sc-names" id="scNames"></div>
       <div class="sc-act"><button type="button" id="scReveal">إظهار الإجابة الصحيحة</button><button type="button" id="scReset">إعادة المسح</button><button type="button" id="scDemo">تجربة بدون كاميرا</button></div>
     </div>
   </div>
@@ -1253,21 +1278,37 @@ async function recVoice(){const st=$('#mst'),b=$('#mrec');
 /* ===================== بطاقات الطيف (ArUco) ===================== */
 const SCQ={ev0:ST.ev0,r0:REM[0],r1:REM[1],pre1:ST.pre1,pre2:ST.pre2,ev1:ST.ev1,ev2:ST.ev2};QUIZ.forEach((q,i)=>SCQ['quiz'+i]=q);
 const SCAN={};try{Object.assign(SCAN,JSON.parse(localStorage.getItem('ss-scan')||'{}'))}catch(e){}
-function saveScan(){try{localStorage.setItem('ss-scan',JSON.stringify(SCAN))}catch(e){}}
+let SC_SIG='',SC_Z=null,SCT={};try{SCT=JSON.parse(localStorage.getItem('ss-sct')||'{}')}catch(e){}
+function saveScan(){try{SCT[curQ]=Date.now()+(SY.off||0)}catch(e){}try{localStorage.setItem('ss-scan',JSON.stringify(SCAN));localStorage.setItem('ss-sct',JSON.stringify(SCT))}catch(e){}
+  try{if(SY.mode==='admin'){CTL.sc=JSON.parse(JSON.stringify(SCAN));CTL.sct=Object.assign({},SCT);SC_SIG=JSON.stringify([CTL.sc,CTL.sct]);pushCtl()}}catch(e){}}
 function scanSummary(q){const a=SCAN[q]||{},n=Object.keys(a).length;return n?`أجابت ${n} من ${STUD.length} عبر البطاقات`:'كل طالبة ترفع بطاقتها، والحرف الأعلى هو إجابتها'}
 let det=null,stream=null,loopT=0,curQ='r0',revealed=false,pend={};
 function letterOf(c){const mids=[[c[0],c[1]],[c[1],c[2]],[c[2],c[3]],[c[3],c[0]]].map(([p,q])=>(p.y+q.y)/2);let k=0;for(let i=1;i<4;i++)if(mids[i]<mids[k])k=i;return k}
 function renderScanSide(){const a=SCAN[curQ]||{},z=SCQ[curQ],cnt=[0,0,0,0];Object.values(a).forEach(v=>cnt[v]++);const n=Object.keys(a).length,mx=Math.max(1,...cnt);
   $('#scN').textContent=n;$('#scT').textContent=STUD.length;
   $('#scBars').innerHTML=cnt.slice(0,z.o.length).map((c,i)=>`<div class="sc-bar ${revealed&&i===z.a?'ok':''}"><span class="k">${AB[i]}</span><span class="t"><i style="width:${c/mx*100}%"></i></span><b>${c}</b></div>`).join('');
-  $('#scNames').innerHTML=STUD.map(s=>{const v=a[s.n];const cl=v==null?'':(revealed?(v===z.a?'right':'wrong'):'on');return `<span class="${cl}">${s.n}. ${esc(s.name)}</span>`}).join('');
+  $('#scNames').innerHTML=STUD.map(s=>{const v=a[s.n];const cl=v==null?'':(revealed?(v===z.a?'right':'wrong'):'on');return `<button type="button" data-sn="${s.n}" class="${cl}">${s.n}. ${esc(s.name)}${v!=null?` <b>${AB[v]}</b>`:''}</button>`}).join('');
   const r=$('#sr'+curQ);if(r)r.textContent=scanSummary(curQ)}
-async function openScan(q){curQ=q;revealed=false;pend={};const z=SCQ[q];$('#scQ').textContent=z.q;$('#scan').hidden=false;renderScanSide();
-  const msg=$('#scMsg');msg.textContent='جارٍ تشغيل الكاميرا…';
-  try{det=det||new AR.Detector({dictionaryName:'ARUCO_4X4_1000'})}catch(e){msg.textContent='تعذّر تحميل قارئ البطاقات';return}
-  try{stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}}});
-    const v=$('#scV');v.srcObject=stream;await v.play();msg.textContent='وجّهي الكاميرا نحو الصف ببطء، حتى تُقرأ كل البطاقات';loop()}
-  catch(e){msg.textContent='الكاميرا غير متاحة هنا. افتحي المنصة من رابطها على الجوال واسمحي باستخدام الكاميرا، أو جرّبي «تجربة بدون كاميرا».'}}
+async function openScan(q){if(!SCQ[q])return;curQ=q;revealed=false;pend={};const z=SCQ[q];$('#scQ').textContent=z.q;$('#scan').hidden=false;renderScanSide();startCam()}
+function camErr(e){const n=(e&&e.name)||'';
+  if(!window.isSecureContext)return 'الكاميرا تعمل فقط من الرابط الآمن للمنصة (https). افتحي المنصة من رابطها الأصلي.';
+  if(n==='NotAllowedError'||n==='SecurityError')return 'المتصفح منع الكاميرا. اضغطي على رمز القفل 🔒 بجانب الرابط ← Camera ← Allow، ثم «🔄 تشغيل الكاميرا». أو أدخلي الحروف يدوياً بالضغط على الأسماء.';
+  if(n==='NotFoundError'||n==='OverconstrainedError')return 'لا توجد كاميرا متصلة بهذا الجهاز. افتحي العرض على الجوال (لوحة أ. سارة) وامسحي منه، أو أدخلي الحروف يدوياً بالضغط على الأسماء.';
+  if(n==='NotReadableError'||n==='AbortError')return 'الكاميرا مشغولة ببرنامج آخر (مثل Teams أو Zoom). أغلقيه ثم اضغطي «🔄 تشغيل الكاميرا».';
+  return 'تعذّر تشغيل الكاميرا. جرّبي «🔄 تشغيل الكاميرا» أو اختاري كاميرا أخرى، أو أدخلي الحروف يدوياً بالضغط على الأسماء.'}
+function stopCam(){clearTimeout(loopT);if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}}
+async function fillCams(){const sel=$('#scCam');try{const ds=(await navigator.mediaDevices.enumerateDevices()).filter(d=>d.kind==='videoinput');let cur='';try{cur=localStorage.getItem('ss-cam')||''}catch(e){}
+  const live=stream&&stream.getVideoTracks()[0]&&stream.getVideoTracks()[0].getSettings().deviceId;
+  sel.innerHTML=ds.map((d,i)=>`<option value="${d.deviceId}" ${(live||cur)===d.deviceId?'selected':''}>${esc(d.label||('كاميرا '+(i+1)))}</option>`).join('');sel.hidden=ds.length<2}catch(e){sel.hidden=true}}
+async function startCam(){stopCam();const msg=$('#scMsg');msg.textContent='جارٍ تشغيل الكاميرا…';
+  try{det=det||new AR.Detector({dictionaryName:'ARUCO_4X4_1000'})}catch(e){msg.textContent='تعذّر تحميل قارئ البطاقات. حدّثي الصفحة (Ctrl+F5)، أو أدخلي الحروف يدوياً بالضغط على الأسماء.';return}
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){msg.textContent=camErr({name:'NotFoundError'});return}
+  let id='';try{id=localStorage.getItem('ss-cam')||''}catch(e){}
+  const tries=[id?{deviceId:{exact:id},width:{ideal:1920},height:{ideal:1080}}:null,{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}},true].filter(Boolean);let err=null;
+  for(const video of tries){try{stream=await navigator.mediaDevices.getUserMedia({audio:false,video});break}catch(e){err=e;if(e&&e.name==='NotAllowedError')break}}
+  if(!stream){msg.textContent=camErr(err);fillCams();return}
+  try{const v=$('#scV');v.srcObject=stream;await v.play()}catch(e){}
+  msg.textContent='وجّهي الكاميرا نحو الصف ببطء، حتى تُقرأ كل البطاقات';fillCams();loop()}
 const work=document.createElement('canvas');
 function loop(){const v=$('#scV');if(!stream)return;if(v.readyState>=2){const W=Math.min(1280,v.videoWidth),H=Math.round(v.videoHeight*W/v.videoWidth);work.width=W;work.height=H;const x=work.getContext('2d',{willReadFrequently:true});x.drawImage(v,0,0,W,H);
     let ms=[];try{ms=det.detect(x.getImageData(0,0,W,H))}catch(e){}
@@ -1279,8 +1320,17 @@ function loop(){const v=$('#scV');if(!stream)return;if(v.readyState>=2){const W=
       const cx=m.corners.reduce((s,p)=>s+p.x,0)/4,cy=Math.min(...m.corners.map(p=>p.y));ox.fillStyle='#C25E7A';ox.fillRect(cx-28,cy-34,56,28);ox.fillStyle='#fff';ox.font='bold 18px sans-serif';ox.textAlign='center';ox.fillText(st.n+' '+AB[L],cx,cy-14)});
     if(changed){saveScan();renderScanSide()}}
   loopT=setTimeout(()=>requestAnimationFrame(loop),110)}
-function closeScan(){clearTimeout(loopT);if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}$('#scan').hidden=true;const r=$('#sr'+curQ);if(r)r.textContent=scanSummary(curQ)}
+function closeScan(){stopCam();$('#scan').hidden=true;const r=$('#sr'+curQ);if(r)r.textContent=scanSummary(curQ)}
 $('#scClose').onclick=closeScan;
+$('#scRetry').onclick=()=>startCam();
+$('#scCam').onchange=e=>{try{localStorage.setItem('ss-cam',e.target.value)}catch(x){}startCam()};
+$('#scNames').addEventListener('click',e=>{const b=e.target.closest('[data-sn]');if(!b)return;const n=+b.dataset.sn,a=SCAN[curQ]=SCAN[curQ]||{},k=SCQ[curQ].o.length;const v=a[n];
+  if(v==null)a[n]=0;else if(v<k-1)a[n]=v+1;else delete a[n];delete pend[n];saveScan();renderScanSide()});
+setInterval(()=>{const cz=CTL.z||0;if(SC_Z===null)SC_Z=cz;if(cz!==SC_Z){SC_Z=cz;Object.keys(SCAN).forEach(k=>delete SCAN[k]);Object.keys(SCT).forEach(k=>delete SCT[k]);SC_SIG='';if(!$('#scan').hidden)renderScanSide()}
+  if(!CTL.sc)return;const s=JSON.stringify([CTL.sc,CTL.sct||{}]);if(s===SC_SIG)return;SC_SIG=s;const T=CTL.sct||{};let ch=false;
+  Object.keys(Object.assign({},CTL.sc,T)).forEach(q=>{if((+T[q]||0)>(+SCT[q]||0)){SCAN[q]=Object.assign({},CTL.sc[q]||{});SCT[q]=+T[q];ch=true}});if(!ch)return;
+  try{localStorage.setItem('ss-scan',JSON.stringify(SCAN));localStorage.setItem('ss-sct',JSON.stringify(SCT))}catch(e){}
+  if(!$('#scan').hidden)renderScanSide();Object.keys(SCQ).forEach(q=>{const r=$('#sr'+q);if(r)r.textContent=scanSummary(q)})},1000);
 $('#scReveal').onclick=()=>{revealed=true;renderScanSide()};
 $('#scReset').onclick=()=>{SCAN[curQ]={};pend={};revealed=false;saveScan();renderScanSide()};
 $('#scDemo').onclick=()=>{const a=SCAN[curQ]=SCAN[curQ]||{},z=SCQ[curQ];STUD.forEach(s=>{if(Math.random()<.85)a[s.n]=Math.random()<.65?z.a:Math.floor(Math.random()*z.o.length)});saveScan();renderScanSide()};
@@ -1316,7 +1366,7 @@ function closeGroup(){GOPEN=-1;const d=$('#gdlg');if(d)d.hidden=true}
 function renderGroupDlg(){const d=$('#gdlg');if(!d||GOPEN<0||d.hidden)return;const g=GOPEN,G=GROUPS[g],rs=recs().filter(r=>r.g===g),GG=GRP[g]||{};const me=STUD.filter(s=>s.g===g);
   const h=`<div class="gbox"><div class="dhead" style="--tone:${G.tone}">${G.wm}<button type="button" class="gx" data-x="close" aria-label="إغلاق">✕</button><div class="en" lang="en">Team ${G.en}</div>${G.flag}${barHTML(gColors(g))}<small>${gScore(g)} نقطة · ${gColors(g)} من 7 ألوان · ❤ ${HEARTS[g]}</small></div>
   <div class="act"><span class="tag">طالبات المجموعة (${me.length})</span><div class="rwlist">${me.map(s=>{const r=rs.find(x=>x.n===s.n);return `<div class="rws"><span class="nm">${s.n}. ${esc(s.name)}</span><span class="tt"><b>❤ ${likeTot(s.n)}</b>${canControl()?`<button type="button" data-like="${s.n}">❤ قلب</button>`:''}</span><span class="hcs">${srcChips(s.n)}</span><span class="mini">${r?`✦ ${indPts(r)} نقطة · ${CTL.st&&ST[CTL.st].scope==='ind'?ansText(r,CTL.st):'متصلة'}`:'لم تدخل من جهازها بعد'}</span></div>`}).join('')}</div></div>
-  <div class="act"><span class="tag">أعمال المجموعة</span><div class="mtx"><b>الفرضية:</b> ${GG.hyp?esc(GG.hyp):'—'}</div><div class="mtx"><b>المقارنة:</b> ${Object.keys(cmpOf(g)).length} من 8 · <b>حكمهن على Copilot:</b> ${GG.ai&&GG.ai.v!=null?ST.ai.o[GG.ai.v]+(GG.ai.e?' · '+esc(GG.ai.e):''):'—'}</div>
+  <div class="act"><span class="tag">أعمال المجموعة</span><div class="mtx"><b>الفرضية:</b> ${GG.hyp?esc(GG.hyp):'—'}</div><div class="mtx"><b>المقارنة:</b> ${Object.keys(cmpOf(g)).length} من ${ST.cmp.items.length} · <b>حكمهن على Copilot:</b> ${GG.ai&&GG.ai.v!=null?ST.ai.o[GG.ai.v]+(GG.ai.e?' · '+esc(GG.ai.e):''):'—'}</div>
   <p class="mini" style="margin:0">رابط جهاز المجموعة: <a href="${baseURL()}#g${g+1}" target="_blank" rel="noopener" style="direction:ltr;display:inline-block">${baseURL()}#g${g+1}</a></p></div></div>`;
   if(d._h!==h){d._h=h;d.innerHTML=h}}
 $('#gems').addEventListener('click',e=>{const c=e.target.closest('[data-gem]');if(c)openGroup(+c.dataset.gem)});
@@ -1460,7 +1510,7 @@ function handBar(){if(!rotActive())return;const st=CTL.st,box=$('#dact');if(!box
 if(SY.mode==='group'){if(!ME)ME={n:0,g:DEVG,a:{}};try{renderDev()}catch(e){}}
 
 /* ========== 8) بدء حصة جديدة: مسح البيانات من كل الأجهزة ========== */
-function wipeLocalSS(z){try{localStorage.setItem('ss-z',String(z||0));const ks=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(/^ss-(rec-|me$|cheer$|gsec$|scan$|likes$|G\d$|ctl$|vseen)/.test(k))ks.push(k)}ks.forEach(k=>localStorage.removeItem(k))}catch(e){}
+function wipeLocalSS(z){try{localStorage.setItem('ss-z',String(z||0));const ks=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(/^ss-(rec-|me$|cheer$|gsec$|scan$|sct$|likes$|G\d$|ctl$|vseen)/.test(k))ks.push(k)}ks.forEach(k=>localStorage.removeItem(k))}catch(e){}
   for(const k in RECS)delete RECS[k];ROT.n=0;ROT.fin={};ROT.shown='';try{Object.keys(SCAN).forEach(k=>delete SCAN[k])}catch(e){}
   try{for(const k in SY.d)if(/^(d\d+|x\d|G\d|hearts|likes|gmsg)$/.test(k))delete SY.d[k]}catch(e){}
   if(SY.mode==='group')ME={n:0,g:DEVG,a:{}};else if(SY.mode!=='admin')ME=null}
@@ -1490,6 +1540,42 @@ function rwBurst(x,y){for(let i=0;i<7;i++){const h=document.createElement('div')
 setInterval(()=>{try{if(!$('#v-show').hidden)rwDock()}catch(e){}},1500);
 document.addEventListener('keydown',e=>{if($('#v-show').hidden||e.target.closest('input,textarea,select'))return;if((e.key==='h'||e.key==='H'||e.key==='ا')&&canControl()){RWD.open=!RWD.open;rwDock()}else if(e.key==='Escape'&&RWD.open){RWD.open=false;rwDock()}});
 
+
+/* ===================== 10. عرض أعمال الطالبات على العرض ===================== */
+(function(){
+const WK={k:null,names:true,ok:false};let wkT=0;
+const short=n=>{const p=String(n||'').trim().split(/\s+/);return p.length>2?p[0]+' '+p[p.length-1]:p.join(' ')};
+const WKL=[['hyp','الفرضية'],['cmp','جدول التصنيف'],['ev0','غلق الموصلية'],['pre1','توقّع n'],['lab1','مختبر n'],['lv1','المستويات'],['ev1','غلق n'],['pre2','توقّع p'],['lab2','ملاحقة الفجوة'],['ai','حكم Copilot'],['quiz','المسابقة'],['exit','بطاقة الخروج']].filter(x=>ST[x[0]]);
+function curK(){const s=SL[si];if(s&&s.st&&ST[s.st])return s.st;return CTL.st&&ST[CTL.st]?CTL.st:WKL[0][0]}
+const ok=t=>WK.ok?` <i class="wk-ok">✓</i>`:'';
+function indWork(r,k){const z=ST[k],v=r&&r.a?r.a[k]:null;if(v==null)return '<span class="wk-wait">لم تُرسل بعد</span>';
+  if(z.type==='mcq')return `<b class="wk-l">${AB[v]}</b> ${esc(z.o[v])}${!z.predict&&v===z.a?ok():''}`;
+  if(z.type==='lab'){const L=[];if(k==='lab2'&&v.s)L.push(v.s.w?`وصلت الفجوة إلى اليمين في <b>${v.s.m}</b> خطوة`:`خطوات حتى الآن: <b>${v.s.m||0}</b>`);if(k==='lab1')L.push(v.ok?'شغّلت الدائرة بعد التطعيم':'تجرّب في المعمل…');
+    (v.q||[]).forEach((x,i)=>{if(x!=null&&z.qs[i])L.push(`س${i+1}: ${esc(z.qs[i].o[x])}${x===z.qs[i].a?ok():''}`)});return L.join('<br>')}
+  if(z.type==='levels'){const tr=v.tr||{};const L=z.L.map((l,i)=>tr[i]!=null?`<b>${l.n}:</b> ${esc(l.o[tr[i]])}${tr[i]===l.a?ok():''}`:null).filter(Boolean);return L.length?L.join('<br>'):'<span class="wk-wait">تعمل على المستويات…</span>'}
+  if(k==='quiz'){const e=Object.entries(v).filter(([i])=>QUIZ[i]);return e.length?e.map(([i,x])=>`س${+i+1}: <b class="wk-l">${AB[x]}</b>${x===QUIZ[i].a?ok():''}`).join(' · '):'<span class="wk-wait">لم تبدأ</span>'}
+  if(k==='exit')return `${v.l?'<b>تعلّمت:</b> '+esc(v.l):''}${v.q?'<br><b>سؤالها:</b> '+esc(v.q):''}`||'<span class="wk-wait">لم تُرسل بعد</span>';
+  return '✓'}
+function grpWork(g,k){const GG=GRP[g]||{};
+  if(k==='hyp')return GG.hyp?`<p class="wk-big">${esc(GG.hyp)}</p>`:'<span class="wk-wait">لم تُكتب الفرضية بعد</span>';
+  if(k==='ai')return GG.ai&&GG.ai.v!=null?`<p class="wk-big"><b>${esc(ST.ai.o[GG.ai.v])}</b>${GG.ai.v===ST.ai.a?ok():''}</p>${GG.ai.e?`<p>${esc(GG.ai.e)}</p>`:''}`:'<span class="wk-wait">لم تحكم المجموعة بعد</span>';
+  if(k==='cmp'){const c=cmpOf(g),lab=ST.cmp.lab||{};return `<div class="wk-cls">${ST.cmp.items.map((it,i)=>`<span>${esc(it[0].split(' · ')[0])}</span><b>${c[i]?esc(lab[c[i]]||c[i])+(c[i]===it[1]?ok():''):'—'}</b>`).join('')}</div>`}
+  return ''}
+function wkHTML(){const k=WK.k||curK(),z=ST[k];
+  const cols=GROUPS.map((G,g)=>{const me=STUD.filter(s=>s.g===g).sort((a,b)=>a.n-b.n),rs=recs().filter(r=>r.g===g);
+    const body=z.scope==='grp'?grpWork(g,k):me.map(s=>{const r=rs.find(x=>x.n===s.n);return `<div class="wk-st">${WK.names?`<div class="wk-nm">${esc(short(s.name))}</div>`:''}<div class="wk-ans">${indWork(r,k)}</div></div>`}).join('');
+    return `<section class="wk-g" style="--tone:${G.tone}"><h4>${G.flag}<span lang="en">Team ${G.en}</span></h4>${body}</section>`}).join('');
+  return `<div class="wk-top"><b>👀 أعمال الطالبات · ${esc(z.t)}</b><div class="wk-tools"><button type="button" data-wk="names">${WK.names?'إخفاء الأسماء':'إظهار الأسماء'}</button><button type="button" data-wk="ok" aria-pressed="${WK.ok}">${WK.ok?'إخفاء علامة الصحيح':'إظهار علامة الصحيح ✓'}</button><button type="button" class="wk-x" data-wk="x" aria-label="إغلاق">✕</button></div></div>
+   <div class="wk-tabs">${WKL.map(([kk,n])=>`<button type="button" data-wkk="${kk}" aria-pressed="${kk===k}">${n}</button>`).join('')}</div>
+   <div class="wk-grid" style="grid-template-columns:repeat(${GROUPS.length},minmax(0,1fr))">${cols}</div>`}
+function render(){const d=$('#wkDlg');if(!d||d.hidden)return;const h=wkHTML();if(d._h!==h){d._h=h;d.innerHTML=h}}
+function open(){let d=$('#wkDlg');if(!d){d=document.createElement('div');d.id='wkDlg';d.className='wkdlg';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-label','أعمال الطالبات');document.body.appendChild(d);
+  d.addEventListener('click',e=>{const b=e.target.closest('[data-wk]'),t=e.target.closest('[data-wkk]');if(t){WK.k=t.dataset.wkk;render();return}if(!b)return;const w=b.dataset.wk;if(w==='x')close();else if(w==='names')WK.names=!WK.names;else if(w==='ok')WK.ok=!WK.ok;render()})}
+  WK.k=curK();d.hidden=false;d._h='';render();clearInterval(wkT);wkT=setInterval(render,2000)}
+function close(){const d=$('#wkDlg');if(d)d.hidden=true;clearInterval(wkT)}
+$('#wkBtn').onclick=open;
+document.addEventListener('keydown',e=>{const d=$('#wkDlg');if(e.key==='Escape'&&d&&!d.hidden)close();if((e.key==='w'||e.key==='W'||e.key==='ص')&&!e.ctrlKey&&!e.metaKey&&!$('#v-show').hidden&&!/INPUT|TEXTAREA|SELECT/.test((document.activeElement||{}).tagName||'')){if(d&&!d.hidden)close();else open()}});
+})();
 
 </script>
 </body>
