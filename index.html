@@ -561,6 +561,14 @@ table.fcmp.fin{flex:none}.fcmp.fin th,.fcmp.fin td{padding:.8% 2%;font-size:clam
 .qzs .scanrow{margin-top:4px}
 [data-live="quiz"]{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;align-content:start}[data-live="quiz"] .lh{grid-column:1/-1}
 [data-live="quiz"] .lbar{margin:0}
+
+.olist [data-j]{position:relative}.olist .qc{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-style:normal;font-weight:800;min-width:1.7em;text-align:center;padding:1px 7px;border-radius:999px;background:#7A1F35;color:#fff;font-size:.95em}
+body.pres{background:#1b0e12;overflow:hidden}
+body.pres .bg,body.pres .pill,body.pres #crest,body.pres #tabs,body.pres #abar,body.pres .rwdock{display:none!important}
+body.pres .wrap{max-width:none;padding:0;margin:0;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center}
+body.pres #v-show{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;margin:0;padding:0}
+body.pres #stage{width:min(100vw,177.78vh);max-width:none;border-radius:0;margin:0;box-shadow:none}
+body.pres .snav{position:fixed;bottom:10px;left:10px;z-index:50;opacity:.18;transition:opacity .2s;margin:0}body.pres .snav:hover{opacity:1}
 .labsvg .pulse{animation:pl 1.2s ease-in-out infinite}@keyframes pl{50%{stroke-opacity:.25;fill-opacity:.05}}
 </style>
 </head>
@@ -586,7 +594,7 @@ table.fcmp.fin{flex:none}.fcmp.fin th,.fcmp.fin td{padding:.8% 2%;font-size:clam
   <!-- presentation -->
   <section id="v-show" hidden>
     <div class="stage" id="stage"><div class="slide" id="slide"></div></div>
-    <div class="snav"><button type="button" id="sPrev" aria-label="الشريحة السابقة">→</button><span id="sNum"></span><button type="button" id="sNext" aria-label="الشريحة التالية">←</button><button type="button" id="wkBtn" class="wkbtn">👀 أعمال الطالبات</button></div>
+    <div class="snav"><button type="button" id="sPrev" aria-label="الشريحة السابقة">→</button><span id="sNum"></span><button type="button" id="sNext" aria-label="الشريحة التالية">←</button><button type="button" id="sFull" class="wkbtn" title="عرض بملء الشاشة (F) · يعمل بالمؤشر/الكليكر">⛶ وضع العرض</button><button type="button" id="wkBtn" class="wkbtn">👀 أعمال الطالبات</button></div>
     <div class="abar" id="abar"></div>
   </section>
 
@@ -1076,7 +1084,9 @@ function vennSVG(rv){const it=ST.cmp.items,grp=k=>it.map((x,i)=>i).filter(i=>it[
   ${rv?col(grp('n'),140,105,95)+col(grp('p'),500,105,95)+col(grp('b'),320,150,105):''}</svg>`}
 function cmpLive(){return `<div class="cmpw">${GROUPS.map((g,i)=>{const c=cmpOf(i);const n=Object.keys(c).length;const ok=ST.cmp.items.filter((it,k)=>c[k]===it[1]).length;return `<span style="--tone:${g.tone}">${g.flag}<b>${g.en}</b> ${n}/${ST.cmp.items.length}${REVEAL.cmp?` · ✓ ${ok}`:''}</span>`}).join('')}</div>`}
 function aiLive(){return `<div class="wall">${GROUPS.map((g,i)=>{const x=GRP[i].ai;return groupLine(i,x&&x.v!=null?`<p><b>${ST.ai.o[x.v]}</b></p><p>${esc(x.e||'')}</p>${x.c?`<p class="mini">التصحيح: ${esc(x.c)}</p>`:''}`:'<p class="em">بانتظار الحكم…</p>')}).join('')}</div>`}
-function quizLive(){const k=quizK(),z=QUIZ[k],cnt=z.o.map(()=>0);let n=0;recs().forEach(r=>{const v=r.a.quiz&&r.a.quiz[k];if(v!=null){cnt[v]++;n++}});const mx=Math.max(1,...cnt);
+function quizLive(){const k=quizK(),z=QUIZ[k],cnt=z.o.map(()=>0);let n=0;const seen={};recs().forEach(r=>{const v=r.a.quiz&&r.a.quiz[k];if(v!=null){cnt[v]++;n++;seen[r.n]=1}});
+  const sc=(typeof SCAN!=='undefined'&&SCAN['quiz'+k])||{};Object.keys(sc).forEach(m=>{const v=sc[m];if(!seen[m]&&v!=null&&cnt[v]!=null){cnt[v]++;n++}});const mx=Math.max(1,...cnt);
+  setTimeout(()=>document.querySelectorAll('#slide [data-olist="quiz"] [data-j]').forEach(d=>{let e=d.querySelector('.qc');if(!e){e=document.createElement('em');e.className='qc';d.appendChild(e)}e.textContent=cnt[+d.dataset.j]}),0);
   return `<div class="lh"><span>أجابت <b>${n}</b> من <b>${STUD.length}</b></span></div>${cnt.map((c,i)=>`<div class="lbar ${CTL.rv&&i===z.a?'ok':''}"><span class="k">${AB[i]}</span><span class="t"><i style="width:${c/mx*100}%"></i></span><b>${c}</b></div>`).join('')}`}
 function boardHTML(){const rows=GROUPS.map((g,i)=>({g,i,p:gScore(i),c:gColors(i)})).sort((a,b)=>b.p-a.p);
   return rows.map((r,k)=>`<div class="brow ${k===0&&r.p>0?'top':''}" style="--tone:${r.g.tone}"><span class="rk">${k+1}</span><span class="bn">${r.g.flag}${r.g.en}</span>${barHTML(r.c)}<b class="p">${r.p} ✦${HEARTS[r.i]?` · ❤ ${HEARTS[r.i]}`:''}</b></div>`).join('')}
@@ -1093,6 +1103,13 @@ function refreshLive(){
   if(!$('#v-mon').hidden)renderMon();renderGems();if(typeof renderGroupDlg==='function')renderGroupDlg();if(typeof renderGuest==='function'&&$('#v-gst')&&!$('#v-gst').hidden)renderGuest();
   if(SY.mode==='group'){renderDevHead();renderMine();if(CTL.st==='cmp'&&$('#abody'))dSort($('#abody'),'cmp',ST.cmp)}}
 function markOlist(){document.querySelectorAll('[data-olist]').forEach(o=>{const st=o.dataset.olist;if(st==='quiz')return;const z=ST[st];o.querySelectorAll('[data-j]').forEach(d=>d.classList.toggle('ok',!!REVEAL['m'+st]&&+d.dataset.j===z.a))})}
+
+function presToggle(on){const el=document.documentElement;if(on==null)on=!document.body.classList.contains('pres');
+  if(on){document.body.classList.add('pres');try{(el.requestFullscreen||el.webkitRequestFullscreen).call(el)}catch(e){}$('#sFull').textContent='✕ خروج من العرض'}
+  else{document.body.classList.remove('pres');try{if(document.fullscreenElement)document.exitFullscreen()}catch(e){}$('#sFull').textContent='⛶ وضع العرض'}setTimeout(()=>{try{show()}catch(e){}},120)}
+$('#sFull').onclick=()=>presToggle();
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&document.body.classList.contains('pres'))presToggle(false)});
+document.addEventListener('keydown',e=>{if($('#v-show').hidden||e.target.closest('input,textarea,select'))return;if((e.key==='f'||e.key==='F'||e.key==='ب')&&!e.ctrlKey&&!e.metaKey){e.preventDefault();presToggle()}});
 
 /* ===================== جهاز المجموعة ===================== */
 let DEVG=0,devLab=null,devLabSt=null;
