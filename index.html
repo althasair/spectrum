@@ -584,6 +584,20 @@ body.pres .snav{position:fixed;bottom:10px;left:10px;z-index:50;opacity:.18;tran
 body.pres #abar{position:fixed;bottom:8px;left:50%;transform:translateX(-50%);z-index:60;margin:0;max-width:calc(100vw - 340px);padding:6px 12px;opacity:.55;transition:opacity .2s;box-shadow:0 6px 20px rgba(0,0,0,.25)}
 body.pres #abar:hover{opacity:1}
 body.pres #abar .st{font-size:12px}
+/* تقييم الحصة #eval */
+.sev{position:fixed;inset:0;z-index:9000;background:rgba(74,34,56,.55);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:14px}
+.sevc{width:min(640px,100%);margin:auto 0;background:#FFF7FA;border:2px solid #E7B6C8;border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.35);padding:16px;color:#4A2238;font-family:inherit}
+.sevl{display:block;width:150px;margin:0 auto 4px}
+.sevc h2{margin:0;text-align:center;color:#B0476F;font-size:24px}.sevs{text-align:center;color:#7B5A6C;font-size:13.5px;margin:4px 0 12px;line-height:1.6}
+.sevq{background:#fff;border:1px solid #F0D6E0;border-radius:14px;padding:10px 12px;margin-bottom:9px}
+.sevq b{display:block;font-size:15px;margin-bottom:8px;line-height:1.45}.sevq b i{font-style:normal;color:#C9789A;margin-inline-end:6px}
+.sevo{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.sevo button{font:inherit;font-size:13px;font-weight:700;border-radius:11px;border:1.5px solid #F0D6E0;background:#FFF5F9;color:#6B3A55;padding:8px 4px;cursor:pointer}
+.sevo button.on{background:linear-gradient(180deg,#D0638C,#9C3F67);border-color:#9C3F67;color:#fff}
+.sevc textarea{width:100%;min-height:80px;border-radius:12px;border:1.5px solid #F0D6E0;padding:10px;font:inherit;font-size:14px;box-sizing:border-box}
+.sevgo{width:100%;margin-top:10px;font:inherit;font-size:17px;font-weight:800;border:0;border-radius:14px;padding:12px;background:linear-gradient(180deg,#D0638C,#9C3F67);color:#fff;cursor:pointer}
+.sevgo:disabled{opacity:.45}.sevm{text-align:center;font-size:13px;color:#B0476F;min-height:18px;margin-top:6px}
+.sevd{text-align:center;padding:20px 8px}.sevd div{font-size:52px}.sevd h3{color:#B0476F;font-size:26px;margin:6px 0}
 .labsvg .pulse{animation:pl 1.2s ease-in-out infinite}@keyframes pl{50%{stroke-opacity:.25;fill-opacity:.05}}
 </style>
 </head>
@@ -1653,6 +1667,29 @@ document.addEventListener('keydown',e=>{const d=$('#wkDlg');if(e.key==='Escape'&
   const _o=MutationObserver&&new MutationObserver(()=>{const sl=document.getElementById('slide');if(sl)delete sl.dataset.fit});
   try{_o.observe(document.getElementById('slide'),{childList:true})}catch(e){}
 })();
+
+// ===== تقييم الحصة التطبيقية (رابط باركود الكتيّب: #eval) — يُحفظ مع تقييمات ملتقى آفاق =====
+(function(){if((location.hash||'').slice(1)!=='eval')return;
+  const URL_EV='https://script.google.com/macros/s/AKfycbyhKJXdNa_6ipWnfuywUXbj0i-4QAtyAv3lh-pqwtkUd50ojGBG63d3yvxXkAbE0Bvk/exec';
+  const Q=['وضوح أهداف الحصة وارتباطها بنواتج التعلّم','تكامل المحاور التسعة ضمنياً في الحصة','توظيف المنصة والأجهزة في التعلّم النشط','مراعاة الفروق الفردية والتمايز من خلال سلّم المستويات','فاعلية التغذية الراجعة الفورية للطالبات','ربط العلم بالقرآن الكريم والقيم والواقع القطري','إدارة الوقت والصف'];
+  const L=[[3,'بدرجة كبيرة'],[2,'بدرجة متوسطة'],[1,'بدرجة محدودة']];const A=Q.map(()=>0);let O='';
+  const done=()=>{try{return localStorage.getItem('ss-evd')==='1'}catch(e){return false}};
+  const ov=document.createElement('div');ov.className='sev';document.body.appendChild(ov);
+  const draw=()=>{ov.innerHTML=`<div class="sevc"><img src="logo.png" alt="Sara Spectrum" class="sevl">${done()?`<div class="sevd"><div>💖</div><h3>شكراً لكِ</h3><p>كنتِ إضافةً جميلة اليوم في حصتنا، وسعدنا بحضوركِ…<br>وإن شاء الله نكون قدّمنا لكِ المفيد.</p><p style="font-size:13px;color:#7B5A6C">وصل تقييمكِ لحصة أ. سارة خالد · جمال العلم وعظمة الخالق</p></div>`:`
+   <h2>قيّمي الحصة التطبيقية</h2><div class="sevs">أشباه الموصلات: النوع السالب n والنوع الموجب p · أ. سارة خالد · الحادي عشر<br>اختاري لكل بند درجة تحقّقه</div>
+   ${Q.map((q,k)=>`<div class="sevq"><b><i>${k+1}</i>${q}</b><div class="sevo">${L.map(l=>`<button type="button" data-k="${k}" data-v="${l[0]}" class="${A[k]===l[0]?'on':''}">${l[1]}</button>`).join('')}</div></div>`).join('')}
+   <div class="sevq"><b><i>✍</i>ملاحظة أو مقترح (اختياري)</b><textarea id="sevO" maxlength="800"></textarea></div>
+   <button type="button" class="sevgo" id="sevGo" ${A.every(x=>x)?'':'disabled'}>إرسال التقييم</button><div class="sevm" id="sevM">${A.every(x=>x)?'':'أكملي البنود السبعة لتفعيل الإرسال'}</div>`}</div>`;
+   const ta=ov.querySelector('#sevO');if(ta){ta.value=O;ta.oninput=()=>O=ta.value}
+   ov.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{A[+b.dataset.k]=+b.dataset.v;draw()});
+   const go=ov.querySelector('#sevGo');if(go)go.onclick=async()=>{go.disabled=true;const m=ov.querySelector('#sevM');m.textContent='جارٍ الإرسال…';
+     const v=JSON.stringify({s:A,o:O.trim(),w:'qr',k:'sara'});let j=null;
+     try{const r=await fetch(URL_EV,{method:'POST',body:JSON.stringify({a:'eval',v})});j=await r.json()}catch(e){}
+     if(!(j&&j.ok)){try{const r=await fetch(URL_EV+'?'+new URLSearchParams({a:'eval',v}).toString(),{cache:'no-store'});j=await r.json()}catch(e){}}
+     try{
+       if(j&&j.ok){try{localStorage.setItem('ss-evd','1')}catch(e){}draw()}else{m.textContent='لم يُحفظ التقييم بعد، حاولي مرة أخرى بعد قليل';go.disabled=false}}
+     catch(e){m.textContent='لم يُحفظ التقييم بعد، حاولي مرة أخرى بعد قليل';go.disabled=false}}};
+  draw()})();
 
 </script>
 </body>
