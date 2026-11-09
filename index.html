@@ -566,7 +566,7 @@ table.fcmp.fin{flex:none}.fcmp.fin th,.fcmp.fin td{padding:.8% 2%;font-size:clam
 
 .olist [data-j]{position:relative}.olist .qc{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-style:normal;font-weight:800;min-width:1.7em;text-align:center;padding:1px 7px;border-radius:999px;background:#7A1F35;color:#fff;font-size:.95em}
 body.pres{background:#1b0e12;overflow:hidden}
-body.pres .bg,body.pres .pill,body.pres #crest,body.pres #tabs,body.pres #abar,body.pres .rwdock{display:none!important}
+body.pres .bg,body.pres .pill,body.pres #crest,body.pres #tabs,body.pres .rwdock{display:none!important}
 body.pres .wrap{max-width:none;padding:0;margin:0;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center}
 body.pres #v-show{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;margin:0;padding:0}
 body.pres #stage{width:min(100vw,177.78vh);max-width:none;border-radius:0;margin:0;box-shadow:none}
@@ -579,6 +579,11 @@ body.pres .snav{position:fixed;bottom:10px;left:10px;z-index:50;opacity:.18;tran
 #stmr.low{border-color:#C62828;animation:stp 1s infinite}#stmr.low b{color:#C62828}
 #stmr.done{background:#C62828;border-color:#8E0000;animation:stp .6s 6}#stmr.done b,#stmr.done .lb,#stmr.done i{color:#fff}
 @keyframes stp{50%{transform:scale(1.08)}}
+
+/* وضع العرض: شريط فتح الأنشطة على الأجهزة يبقى ظاهراً أسفل الشاشة */
+body.pres #abar{position:fixed;bottom:8px;left:50%;transform:translateX(-50%);z-index:60;margin:0;max-width:calc(100vw - 340px);padding:6px 12px;opacity:.55;transition:opacity .2s;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+body.pres #abar:hover{opacity:1}
+body.pres #abar .st{font-size:12px}
 .labsvg .pulse{animation:pl 1.2s ease-in-out infinite}@keyframes pl{50%{stroke-opacity:.25;fill-opacity:.05}}
 </style>
 </head>
