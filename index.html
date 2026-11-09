@@ -569,6 +569,14 @@ body.pres .wrap{max-width:none;padding:0;margin:0;width:100vw;height:100vh;displ
 body.pres #v-show{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;margin:0;padding:0}
 body.pres #stage{width:min(100vw,177.78vh);max-width:none;border-radius:0;margin:0;box-shadow:none}
 body.pres .snav{position:fixed;bottom:10px;left:10px;z-index:50;opacity:.18;transition:opacity .2s;margin:0}body.pres .snav:hover{opacity:1}
+/* مؤقّت الشرائح */
+#stmr{position:absolute;left:8px;top:6px;z-index:30;display:flex;align-items:center;gap:6px;padding:2px 10px 2px 8px;border-radius:999px;background:rgba(255,255,255,.95);border:2px solid #2E6B9E;box-shadow:0 4px 14px rgba(0,0,0,.18);cursor:pointer;user-select:none;font-family:inherit;direction:rtl}
+#stmr .ic{font-size:clamp(13px,1.2vw,18px)}#stmr b{font-size:clamp(15px,1.5vw,24px);font-variant-numeric:tabular-nums;color:#1d3d5c;direction:ltr;min-width:2.6em;text-align:center}
+#stmr .lb{font-size:clamp(10px,.85vw,13px);font-weight:700;color:#2E6B9E}#stmr i{font-style:normal;font-size:clamp(14px,1.3vw,20px);color:#888;padding:0 4px;border-right:1px solid #ddd}
+#stmr.run{border-color:#2E7D32}#stmr.run b{color:#2E7D32}
+#stmr.low{border-color:#C62828;animation:stp 1s infinite}#stmr.low b{color:#C62828}
+#stmr.done{background:#C62828;border-color:#8E0000;animation:stp .6s 6}#stmr.done b,#stmr.done .lb,#stmr.done i{color:#fff}
+@keyframes stp{50%{transform:scale(1.08)}}
 .labsvg .pulse{animation:pl 1.2s ease-in-out infinite}@keyframes pl{50%{stroke-opacity:.25;fill-opacity:.05}}
 </style>
 </head>
@@ -988,11 +996,11 @@ const SL=[
  {h:()=>`<div class="vers"><div class="q">﴿وَمِنَ الْجِبَالِ جُدَدٌ بِيضٌ وَحُمْرٌ <em>مُّخْتَلِفٌ أَلْوَانُهَا</em> وَغَرَابِيبُ سُودٌ <span class="src">(٢٧)</span> وَمِنَ النَّاسِ وَالدَّوَابِّ وَالْأَنْعَامِ مُخْتَلِفٌ أَلْوَانُهُ كَذَٰلِكَ ۗ <em>إِنَّمَا يَخْشَى اللَّهَ مِنْ عِبَادِهِ الْعُلَمَاءُ</em>﴾</div><div class="src">سورة فاطر: 27–28</div><div class="lk"><span>🌈 ألوان مختلفة… هذا هو الطيف</span><span>⛰️ والجبال مصدر السيليكون والفوسفور والبورون</span><span>🔬 العلم طريق إلى خشية الله</span></div></div>`},
  ...REM.map((z,i)=>({h:()=>`${head('الفاقد التعليمي · سؤال '+(i+1),'نتذكّر قبل أن نبدأ')}<div class="qz"><div class="qq">${z.q}</div>${z.src?`<p class="srcnote">📗 ${z.src}</p>`:''}<div class="ops" data-i="${i}">${z.o.map((o,j)=>`<button type="button" data-j="${j}"><span class="lt">${AB[j]}</span> ${o}</button>`).join('')}</div><div class="scanrow"><button type="button" class="scanbtn" data-q="r${i}">📷 مسح بطاقات الطيف</button><span class="scanres" id="srr${i}">${scanSummary('r'+i)}</span></div><div class="fbk" id="fb${i}" aria-live="polite"></div></div>`})),
  {h:()=>`${head('محطة الخرسعة للطاقة الشمسية','الشعور بالمشكلة')}<div class="khr">${KHARSA()}<div class="stat3 col"><div><b>800</b><span>ميغاواط قدرة المحطة</span></div><div><b>1.8M+</b><span>لوح شمسي</span></div><div><b>2022</b><span>افتتحها سمو الأمير في 18 أكتوبر</span></div></div></div><p class="lead">كل لوح في الخرسعة مصنوع من <b>السيليكون</b>… والسيليكون النقي موصل ضعيف للكهرباء. فكيف صار قلب الطاقة الشمسية؟</p>${ay('هُوَ الَّذِي جَعَلَ الشَّمْسَ ضِيَاءً وَالْقَمَرَ نُورًا','سورة يونس: 5','ضياء الشمس آية من آيات الله، وبالعلم نحوّله في الخرسعة إلى كهرباء تضيء بيوت قطر.')}`},
- {h:()=>`${head('المشكلة: ذرة واحدة… وأثر كبير','تحديد المشكلة')}<div class="ratio"><div><b>1</b><span>ذرة تطعيم</span></div><div class="x">:</div><div><b>10,000,000</b><span>ذرة سيليكون</span></div><div class="x">⟵</div><div class="hi"><b>× 1000s</b><span>تضاعف الموصلية آلاف المرات</span></div></div><p class="lead" style="text-align:center">كيف تستطيع ذرة واحدة بين عشرة ملايين ذرة أن تغيّر سلوك البلّورة كلها؟</p>${ay('فَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ','سورة الزلزلة: 7','ذرة واحدة تغيّر موصلية ملايين الذرات… وكذلك العمل الصغير الصادق، أثره كبير عند الله.')}`},
+ {h:()=>`${head('المشكلة: ذرة واحدة… وأثر كبير','تحديد المشكلة')}<div class="ratio"><div><b>1</b><span>ذرة تطعيم</span></div><div class="x">:</div><div><b>10,000,000</b><span>ذرة سيليكون</span></div><div class="x">⟵</div><div class="hi"><b>× 20,000</b><span>تضاعف الموصلية آلاف المرات</span></div></div><p class="lead" style="text-align:center">كيف تستطيع ذرة واحدة بين عشرة ملايين ذرة أن تغيّر سلوك البلّورة كلها؟</p>${ay('فَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ','سورة الزلزلة: 7','ذرة واحدة تغيّر موصلية ملايين الذرات… وكذلك العمل الصغير الصادق، أثره كبير عند الله.')}`},
  {st:'hyp',h:()=>`${head('فرضيات المجموعات','صياغة الفرضيات')}<p class="lead">تكتب كل مجموعة فرضيتها على جهازها، وتظهر هنا دون تعليق… ونعود إليها في نهاية الحصة.</p><div class="wall" data-live="hyp"></div>`},
- {h:()=>`${head('أهداف الحصة','إلى أين نتّجه؟')}<div style="display:grid;gap:2.4%;flex:1;align-content:center"><div class="goal"><i style="background:var(--s1)">1</i><span><b>أن تفسّر الطالبة مفهوم الموصلية الكهربائية، وتصنّف المواد وفقها</b><span>إلى موصلات وعوازل وأشباه موصلات · كتاب الطالبة صفحة 88</span></span></div><div class="goal"><i style="background:var(--s2)">2</i><span><b>أن تفسّر الطالبة تكوّن شبه الموصل من النوع السالب n</b><span>بتطعيم السيليكون بذرات خماسية التكافؤ، وتحديد حاملات الشحنة الأغلبية فيه.</span></span></div><div class="goal"><i style="background:var(--s4)">3</i><span><b>أن تفسّر الطالبة تكوّن شبه الموصل من النوع الموجب p</b><span>بإضافة ذرة ثلاثية التكافؤ إلى السيليكون.</span></span></div></div>`},
+ {h:()=>`${head('أهداف الحصة','إلى أين نتّجه؟')}<div style="display:grid;gap:2.4%;flex:1;align-content:center"><div class="goal"><i style="background:var(--s1)">1</i><span><b>أن تفسّر الطالبة مفهوم الموصلية الكهربائية مصنّفةً المواد وفقها</b><span>إلى موصلات وعوازل وأشباه موصلات · كتاب الطالبة صفحة 88</span></span></div><div class="goal"><i style="background:var(--s2)">2</i><span><b>أن تفسّر الطالبة تكوّن شبه الموصل من النوع السالب n</b><span>بتطعيم السيليكون بذرات خماسية التكافؤ، وتحديد حاملات الشحنة الأغلبية فيه.</span></span></div><div class="goal"><i style="background:var(--s4)">3</i><span><b>أن تفسّر الطالبة تكوّن شبه الموصل من النوع الموجب p</b><span>بإضافة ذرة ثلاثية التكافؤ إلى السيليكون.</span></span></div></div>`},
  // ===== Goal 1: conductivity =====
- {h:()=>`<div class="divd"><small>الهدف الأول</small><h3>من يوصل… ومن يعزل؟</h3><p>الموصلية الكهربائية · كتاب الطالبة صفحة 88</p><div class="dgoal" style="background:var(--s1)">أن تفسّر الطالبة مفهوم الموصلية الكهربائية، وتصنّف المواد وفقها</div><div class="steps">${['الشرح','التصنيف','الغلق'].map((s,i)=>`<span style="background:${G1C[[1,3,4][i]]}">${s}</span>`).join('')}</div></div>`},
+ {h:()=>`<div class="divd"><small>الهدف الأول</small><h3>من يوصل… ومن يعزل؟</h3><p>الموصلية الكهربائية · كتاب الطالبة صفحة 88</p><div class="dgoal" style="background:var(--s1)">أن تفسّر الطالبة مفهوم الموصلية الكهربائية مصنّفةً المواد وفقها</div><div class="steps">${['الشرح','التصنيف','الغلق'].map((s,i)=>`<span style="background:${G1C[[1,3,4][i]]}">${s}</span>`).join('')}</div></div>`},
  {parts:10,h:()=>{let n=0;const b=t=>`<li class="pt ${PART>=n++?'on':''}">${t}</li>`;return `${head('لغز الصندوق الأسود… وسرّ الموصلية','الهدف الأول')}<div class="bx3">
   <div class="card2"><h4>1. لغز الصندوق الأسود</h4><ul>${b('<b>تخيّلي مع مجموعتكِ:</b> توقف الهواتف والحواسيب والأجهزة الذكية في لحظة واحدة.')}${b('<b>السبب العلمي:</b> يدخل السيليكون في <bdi>99.9%</bdi> من جميع رقاقات الحواسيب والإلكترونيات.')}${b('<b>سؤال الانطلاق:</b> ما السر الذي يميز السيليكون عن النحاس والزجاج في الرقاقات؟')}</ul></div>
   <div class="card2"><h4>2. مقارنة للعصف الذهني</h4><ul>${b('<b>لو صُنعت من النحاس:</b> يسري التيار دائماً بلا توقف فلا يمكن تمثيل البيانات الرقمية.')}${b('<b>لو صُنعت من الزجاج:</b> ينقطع التيار تماماً لأن الزجاج عازل يمنع مرور الإلكترونات.')}${b('<b>الحل الذكي:</b> نحتاج لمادة وسطية نتحكم بتوصيلها وهي (أشباه الموصلات).')}</ul></div>
@@ -1599,6 +1607,41 @@ function open(){let d=$('#wkDlg');if(!d){d=document.createElement('div');d.id='w
 function close(){const d=$('#wkDlg');if(d)d.hidden=true;clearInterval(wkT)}
 $('#wkBtn').onclick=open;
 document.addEventListener('keydown',e=>{const d=$('#wkDlg');if(e.key==='Escape'&&d&&!d.hidden)close();if((e.key==='w'||e.key==='W'||e.key==='ص')&&!e.ctrlKey&&!e.metaKey&&!$('#v-show').hidden&&!/INPUT|TEXTAREA|SELECT/.test((document.activeElement||{}).tagName||'')){if(d&&!d.hidden)close();else open()}});
+})();
+
+// ===== مؤقّت الشرائح (إدارة وقت الحصة) — يبدأ بالضغط ويصدر صوتاً عند الانتهاء =====
+(function(){
+  const TM=[[8,30],[9,30],[12,90],[16,120],[17,30],[22,120],[24,180],[29,120],[32,120],[36,180]];
+  const MAP=new Map(TM.map(([n,s])=>[SL[n-1],s]));const ST={};let cur=null,ac=null;
+  const fmt=s=>Math.floor(s/60)+':'+String(Math.max(0,s)%60).padStart(2,'0');
+  function beep(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const t=ac.currentTime;
+    [0,.35,.7].forEach((d,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=i==2?1046:880;g.gain.setValueAtTime(0,t+d);g.gain.linearRampToValueAtTime(.4,t+d+.02);g.gain.exponentialRampToValueAtTime(.001,t+d+.32);o.connect(g).connect(ac.destination);o.start(t+d);o.stop(t+d+.34)})}catch(e){}}
+  function st(s){const k=SL.indexOf(s);return ST[k]||(ST[k]={tot:MAP.get(s),left:MAP.get(s),run:false,end:0,done:false})}
+  function left(o){return o.run?Math.ceil((o.end-Date.now())/1000):o.left}
+  function box(){let b=document.getElementById('stmr');if(!b){b=document.createElement('div');b.id='stmr';document.getElementById('stage').appendChild(b);
+    b.addEventListener('click',e=>{e.stopPropagation();const s=SL[si];if(!MAP.has(s))return;const o=st(s);
+      if(e.target.closest('[data-r]')){o.run=false;o.left=o.tot;o.done=false}
+      else if(o.done){o.left=o.tot;o.done=false;o.run=true;o.end=Date.now()+o.left*1000}
+      else if(o.run){o.left=left(o);o.run=false}else{o.run=true;o.end=Date.now()+o.left*1000;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();ac.resume()}catch(x){}}
+      draw(true)})}return b}
+  function draw(force){const s=SL[si],b=box();if(!MAP.has(s)){if(cur!==null){b.hidden=true;cur=null}return}
+    const o=st(s);let l=left(o);if(o.run&&l<=0){o.run=false;o.left=0;o.done=true;l=0;beep()}
+    const h=`<span class="ic">${o.done?'⏰':'⏱'}</span><b>${o.done?'انتهى الوقت':fmt(l)}</b><span class="lb">${o.done?'إعادة':o.run?'إيقاف مؤقت':l<o.tot?'متابعة':'ابدئي'}</span>${(o.run||l<o.tot||o.done)?'<i data-r title="إعادة الضبط">↺</i>':''}`;
+    const cls=(o.run?'run ':'')+(o.done?'done ':'')+(o.run&&l<=10?'low':'');
+    if(force||b.innerHTML!==h||b.className!==cls){b.innerHTML=h;b.className=cls}b.hidden=false;cur=si}
+  setInterval(()=>{try{draw()}catch(e){}},250);
+  document.addEventListener('keydown',e=>{if(($('#v-show')||{}).hidden||e.target.closest('input,textarea,select'))return;if((e.key==='t'||e.key==='T'||e.key==='ف')&&MAP.has(SL[si])){e.preventDefault();box().querySelector('b').click()}});
+})();
+
+// ===== ملاءمة الشريحة للشاشة: إن زاد المحتوى عن الشاشة يُصغَّر قليلاً حتى يظهر كاملاً =====
+(function(){let last=-1,lw=0,lh=0;
+  function fit(reset){const sl=document.getElementById('slide');if(!sl||($('#v-show')||{}).hidden)return;
+    if(reset){sl.style.zoom='';}let z=parseFloat(sl.style.zoom)||1,n=0;
+    while(sl.scrollHeight-sl.clientHeight>2&&z>0.66&&n++<12){z=Math.round((z-0.04)*100)/100;sl.style.zoom=z}}
+  setInterval(()=>{try{const sl=document.getElementById('slide');if(!sl)return;const ch=si!==last||innerWidth!==lw||innerHeight!==lh||!sl.dataset.fit;
+    if(ch){last=si;lw=innerWidth;lh=innerHeight;sl.dataset.fit=1;fit(true)}else fit(false)}catch(e){}},300);
+  const _o=MutationObserver&&new MutationObserver(()=>{const sl=document.getElementById('slide');if(sl)delete sl.dataset.fit});
+  try{_o.observe(document.getElementById('slide'),{childList:true})}catch(e){}
 })();
 
 </script>
